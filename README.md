@@ -1,30 +1,28 @@
-# React + TypeScript + Vite
+# XCM Tracker App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A web application for tracking XCM executions over WebSockets.
 
-Currently, two official plugins are available:
+## What it shows
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Aggregating across all subscription streams or selecting one from the Ocelloids Service.
+2. Reception and correlation of XCM executions across multiple chains.
+3. Visualization of XCM journeys from origin to destination with waypoints.
+4. Dummy humanization of the XCM intent.
 
-## Expanding the ESLint configuration
+## How it looks
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+![All Networks](https://github.com/sodazone/xcm-tracker/blob/main/.assets/xcm-tracker-all-networks.png)
 
-- Configure the top-level `parserOptions` property like this:
+## Running
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+Corepack enable
+
+```shell
+corepack enable
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Run the web app
+
+```shell
+yarn && yarn dev
+```
