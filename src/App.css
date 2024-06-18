@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.xcm-details .heading {
+  background-color: #27212e;
+  @apply py-1 text-sm px-4 text-gray-400 capitalize;
+ }
+
+ .xcm-details .panel {
+  background-color: #27212ede;
+  @apply text-sm font-mono py-4 px-6 break-all;
+ }
