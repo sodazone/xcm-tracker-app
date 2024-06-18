@@ -1,6 +1,10 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/16/solid";
-import { EllipsisHorizontalIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  EllipsisHorizontalIcon,
+  InboxArrowDownIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { useOcelloidsContext } from "../context/OcelloidsContext";
 import { chainName, trunc } from "../lib/utils";
@@ -38,48 +42,50 @@ export function SelectSubscription() {
   const destinations = uniques(subs.map((s) => s.args.destinations));
   const senders = uniques(subs.map((s) => s.args.senders ?? "*"));
 
-  return (
-    <>
-      <div className="w-full flex items-center divide-x divide-gray-900 border-b border-gray-900 bg-gray-900 bg-opacity-90">
-        <Menu>
-          <MenuButton className="flex flex-grow p-4">
-            <div className="flex w-full items-center space-x-2 text-gray-300">
-              <span className="capitalize">
-                {subscriptionId
-                  ? getOriginChainName(subscriptionId)
-                  : "Select network"}
-              </span>
-              <ChevronDownIcon className="size-5 text-gray-500" />
-            </div>
-          </MenuButton>
-          <MenuItems
-            anchor="bottom end"
-            className="flex flex-col backdrop-blur-xl w-full origin-top-right border border-white/5 bg-white/5 p-1 text-white [--anchor-gap:var(--spacing-1)] focus:outline-none md:w-[var(--button-width)]"
+  const menu = (
+    <Menu>
+      <MenuButton className="flex flex-grow p-4">
+        <div className="flex w-full items-center space-x-2 text-gray-300">
+          <span className="capitalize">
+            {subscriptionId
+              ? getOriginChainName(subscriptionId)
+              : "Select network"}
+          </span>
+          <ChevronDownIcon className="size-5 text-gray-500" />
+        </div>
+      </MenuButton>
+      <MenuItems
+        anchor="bottom end"
+        className="flex flex-col backdrop-blur-xl w-full origin-top-right border border-white/5 bg-white/5 p-1 text-white [--anchor-gap:var(--spacing-1)] focus:outline-none md:w-[var(--button-width)]"
+      >
+        <MenuItem key="all">
+          <button
+            className="p-2 text-left data-[focus]:bg-white/10"
+            onClick={() => setSubscriptionId("all")}
           >
-            <MenuItem key="all">
+            All networks
+          </button>
+        </MenuItem>
+        {subscriptions.map((s) => {
+          return (
+            <MenuItem key={s.id}>
               <button
                 className="p-2 text-left data-[focus]:bg-white/10"
-                onClick={() => setSubscriptionId("all")}
+                onClick={() => setSubscriptionId(s.id)}
               >
-                All networks
+                <span className="capitalize">{chainName(s.args.origin)}</span>
               </button>
             </MenuItem>
-            {subscriptions.map((s) => {
-              return (
-                <MenuItem key={s.id}>
-                  <button
-                    className="p-2 text-left data-[focus]:bg-white/10"
-                    onClick={() => setSubscriptionId(s.id)}
-                  >
-                    <span className="capitalize">
-                      {chainName(s.args.origin)}
-                    </span>
-                  </button>
-                </MenuItem>
-              );
-            })}
-          </MenuItems>
-        </Menu>
+          );
+        })}
+      </MenuItems>
+    </Menu>
+  );
+
+  return subscriptionId ? (
+    <>
+      <div className="w-full flex items-center divide-x divide-gray-900 border-b border-gray-900 bg-gray-900 bg-opacity-90">
+        {menu}
         <button
           className="p-4 text-gray-500 md:hidden"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -91,30 +97,38 @@ export function SelectSubscription() {
           )}
         </button>
       </div>
-      {subscriptionId && (
-        <div
-          className={`${menuOpen ? "flex" : "hidden"} isolate flex-col w-full text-sm text-gray-400 px-4 border-b border-gray-900 bg-gray-900 bg-opacity-90 md:divide-x md:divide-gray-900 md:items-center md:flex-row md:space-x-3 md:flex`}
-        >
-          <div className="flex flex-col space-y-2 pb-2 pt-2 md:pt-0 md:items-center">
-            <span className="uppercase font-semibold">Origins</span>
-            <span className="flex -space-x-1">
-              {origins.map((origin) => getIconChain(origin))}
-            </span>
-          </div>
-          <div className="flex flex-col space-y-2 pb-2 md:pl-3 md:items-center">
-            <span className="uppercase font-semibold">Destinations</span>
-            <span className="flex -space-x-1">
-              {destinations.map((destination) => getIconChain(destination))}
-            </span>
-          </div>
-          <div className="flex flex-col space-y-2 pb-2 md:pl-3 md:items-center">
-            <span className="uppercase font-semibold">Senders</span>
-            <span className="text-gray-200">
-              {senders.map((s) => trunc(s)).join(",")}
-            </span>
-          </div>
+      <div
+        className={`${menuOpen ? "flex" : "hidden"} isolate flex-col w-full text-sm text-gray-400 px-4 border-b border-gray-900 bg-gray-900 bg-opacity-90 md:divide-x md:divide-gray-900 md:items-center md:flex-row md:space-x-3 md:flex`}
+      >
+        <div className="flex flex-col space-y-2 pb-2 pt-2 md:pt-0 md:items-center">
+          <span className="uppercase font-semibold">Origins</span>
+          <span className="flex -space-x-1">
+            {origins.map((origin) => getIconChain(origin))}
+          </span>
         </div>
-      )}
+        <div className="flex flex-col space-y-2 pb-2 md:pl-3 md:items-center">
+          <span className="uppercase font-semibold">Destinations</span>
+          <span className="flex -space-x-1">
+            {destinations.map((destination) => getIconChain(destination))}
+          </span>
+        </div>
+        <div className="flex flex-col space-y-2 pb-2 md:pl-3 md:items-center">
+          <span className="uppercase font-semibold">Senders</span>
+          <span className="text-gray-200">
+            {senders.map((s) => trunc(s)).join(",")}
+          </span>
+        </div>
+      </div>
     </>
+  ) : (
+    <div
+      className="flex flex-col py-20 px-4 h-full bg-gray-900 bg-opacity-30 text-lg text-gray-300 items-center"
+      onClick={() => setMenuOpen(!menuOpen)}
+    >
+      <span className="text-center">
+        Please select a network to start tracking XCM journeys
+      </span>
+      <span className="w-fit border border-gray-300 mt-12">{menu}</span>
+    </div>
   );
 }
