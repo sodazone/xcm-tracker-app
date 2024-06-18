@@ -12,8 +12,12 @@ function uniques<T>(items: T[]) {
 }
 
 export function SelectSubscription() {
-  const { subscriptionId, setSubscriptionId, subscriptions, getSelectedSubscriptions } =
-    useOcelloidsContext();
+  const {
+    subscriptionId,
+    setSubscriptionId,
+    subscriptions,
+    getSelectedSubscriptions,
+  } = useOcelloidsContext();
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
   function getOriginChainName(id: string) {
@@ -67,7 +71,9 @@ export function SelectSubscription() {
                     className="p-2 text-left data-[focus]:bg-white/10"
                     onClick={() => setSubscriptionId(s.id)}
                   >
-                    <span className="capitalize">{chainName(s.args.origin)}</span>
+                    <span className="capitalize">
+                      {chainName(s.args.origin)}
+                    </span>
                   </button>
                 </MenuItem>
               );
