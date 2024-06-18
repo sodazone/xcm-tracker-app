@@ -14,6 +14,7 @@ import { IconPulse } from "./icons/OutcomeIcon";
 export function SubscriptionStreams() {
   const { client, getSelectedSubscriptions } = useOcelloidsContext();
   const [connections, setConnections] = useState<WebSocket[]>([]);
+  const [connecting, setConnecting] = useState<boolean>(false);
   const [state, setState] = useState<{
     journeys: FixedSizedCache<XcmJourney>;
     pinned: IMap<string, XcmJourney>;
@@ -23,48 +24,56 @@ export function SubscriptionStreams() {
   });
 
   useEffect(() => {
-    const subs = getSelectedSubscriptions();
-    if (subs.length > 0 && connections.length === 0) {
-      console.log(
-        "open ws",
-        subs.map((s) => s.id),
-      );
-
-      const conn = [];
-
-      for (const sub of subs) {
-        conn.push(
-          client.agent<xcm.XcmInputs>("xcm").subscribe(sub.id, {
-            onMessage: (msg) => {
-              console.log("MSG", msg);
-
-              const xcm = msg.payload as unknown as xcm.XcmMessagePayload;
-              const id = toJourneyId(xcm);
-
-              setState((prev) => {
-                const pinnedJourney = prev.pinned.get(id);
-                if (pinnedJourney !== undefined) {
-                  const merged = mergeJourney(xcm, pinnedJourney);
-                  return {
-                    journeys: prev.journeys,
-                    pinned: prev.pinned.set(id, merged),
-                  };
-                } else {
-                  const journey = prev.journeys.get(id);
-                  prev.journeys.set(id, mergeJourney(xcm, journey));
-                  return {
-                    pinned: prev.pinned,
-                    journeys: prev.journeys,
-                  };
-                }
-              });
-            },
-          }),
+    async function connect() {
+      const subs = getSelectedSubscriptions();
+      if (subs.length > 0 && connections.length === 0 && connecting === false) {
+        console.log(
+          "open ws",
+          subs.map((s) => s.id),
         );
-      }
+        setConnecting(true);
 
-      setConnections(conn);
+        const conn = [];
+
+        for (const sub of subs) {
+          conn.push(
+            await client
+              .agent<xcm.XcmInputs>("xcm")
+              .subscribe<xcm.XcmMessagePayload>(sub.id, {
+                onMessage: (msg) => {
+                  console.log("MSG", msg);
+
+                  const xcm = msg.payload;
+                  const id = toJourneyId(xcm);
+
+                  setState((prev) => {
+                    const pinnedJourney = prev.pinned.get(id);
+                    if (pinnedJourney !== undefined) {
+                      const merged = mergeJourney(xcm, pinnedJourney);
+                      return {
+                        journeys: prev.journeys,
+                        pinned: prev.pinned.set(id, merged),
+                      };
+                    } else {
+                      const journey = prev.journeys.get(id);
+                      prev.journeys.set(id, mergeJourney(xcm, journey));
+                      return {
+                        pinned: prev.pinned,
+                        journeys: prev.journeys,
+                      };
+                    }
+                  });
+                },
+              }),
+          );
+        }
+
+        setConnections(conn);
+        setConnecting(false);
+      }
     }
+
+    connect();
 
     return () => {
       if (connections.length > 0) {
@@ -80,7 +89,7 @@ export function SubscriptionStreams() {
         pinned: IMap<string, XcmJourney>(),
       });
     };
-  }, [client, getSelectedSubscriptions, connections]);
+  }, [client, getSelectedSubscriptions, connections, connecting]);
 
   function pinJourney(j: XcmJourney) {
     return () => {
