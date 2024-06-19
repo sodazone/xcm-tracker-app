@@ -37,7 +37,7 @@ export function Journey({ journey, pinned, onPinClick }: Props) {
         unmount={false}
         enter="transition-all transform delay-100 duration-300"
         enterFrom="opacity-0 scale-95 max-h-0"
-        enterTo="opacity-100 scale-100 max-h-96"
+        enterTo="opacity-100 scale-100 max-h-99"
         leave="transition-all transform delay-100 duration-300"
         leaveFrom="opacity-100 scale-100 max-h-96"
         leaveTo="opacity-0 scale-95 max-h-0"
@@ -77,7 +77,7 @@ export function Journey({ journey, pinned, onPinClick }: Props) {
                 </span>
                 <button
                   className="text-gray-300 hover:text-gray-500 focus:outline-none"
-                  onClick={() => setExpanded(!expanded)}
+                  onClick={() => setExpanded((prev) => !prev)}
                 >
                   {expanded ? (
                     <ChevronDownIcon className="size-5" />
@@ -118,7 +118,7 @@ export function Journey({ journey, pinned, onPinClick }: Props) {
 
           <button
             className="flex w-full text-sm bg-gray-900 bg-opacity-80 border-t border-gray-900 text-gray-400 p-4 justify-between focus:outline-none md:hidden"
-            onClick={() => setExpanded(!expanded)}
+            onClick={() => setExpanded((prev) => !prev)}
           >
             <span className="flex space-x-2 items-center">
               <CodeBracketIcon className="size-4" />
@@ -131,10 +131,7 @@ export function Journey({ journey, pinned, onPinClick }: Props) {
             )}
           </button>
           {expanded && (
-            <div
-              className="xcm-details flex flex-col"
-              onClick={() => setExpanded(!expanded)}
-            >
+            <div className="xcm-details flex flex-col">
               {journey.forwardId && (
                 <>
                   <div className="heading">XCM Forward ID</div>

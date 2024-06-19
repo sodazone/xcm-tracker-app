@@ -1,10 +1,6 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/16/solid";
-import {
-  EllipsisHorizontalIcon,
-  InboxArrowDownIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { EllipsisHorizontalIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { useOcelloidsContext } from "../context/OcelloidsContext";
 import { chainName, trunc } from "../lib/utils";
