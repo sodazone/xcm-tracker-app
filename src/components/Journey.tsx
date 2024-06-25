@@ -170,7 +170,11 @@ export function Journey({ journey, pinned, onPinClick }: Props) {
             )}
           </button>
           {journey.legs.map((l) => (
-            <Leg leg={l} expanded={legsExpanded} />
+            <Leg
+              key={`${journey.id}-leg-${l.index}`}
+              leg={l}
+              expanded={legsExpanded}
+            />
           ))}
         </div>
       </Transition>

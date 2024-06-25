@@ -112,14 +112,14 @@ function getIconByChainId(id: string) {
               y2="813.59"
               gradientUnits="userSpaceOnUse"
             >
-              <stop stop-color="#F79420" stop-opacity=".92" offset="0" />
-              <stop stop-color="#C4C4C4" stop-opacity="0" offset="1" />
+              <stop stopColor="#F79420" stopOpacity=".92" offset="0" />
+              <stop stopColor="#C4C4C4" stopOpacity="0" offset="1" />
             </linearGradient>
           </defs>
         </svg>
       );
     case "urn:ocn:rococo:0":
-      return <img className="w-full h-full" src={rococo} alt="" />;
+      return <img className="w-full h-full rounded-full" src={rococo} alt="" />;
     case "urn:ocn:polkadot:1000": // ah
     case "urn:ocn:kusama:1000":
     case "urn:ocn:rococo:1000":
@@ -248,14 +248,14 @@ function getIconByChainId(id: string) {
             fill="url(#paint2_linear)"
           />
           <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
+            fillRule="evenodd"
+            clipRule="evenodd"
             d="M44 80.8163C64.3331 80.8163 80.8163 64.3331 80.8163 44C80.8163 23.6669 64.3331 7.18367 44 7.18367C23.6669 7.18367 7.18367 23.6669 7.18367 44C7.18367 64.3331 23.6669 80.8163 44 80.8163ZM44.0898 76.3265C61.9928 76.3265 76.5061 61.8132 76.5061 43.9102C76.5061 26.0072 61.9928 11.4939 44.0898 11.4939C26.1868 11.4939 11.6735 26.0072 11.6735 43.9102C11.6735 61.8132 26.1868 76.3265 44.0898 76.3265Z"
             fill="url(#paint3_linear)"
           />
           <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
+            fillRule="evenodd"
+            clipRule="evenodd"
             d="M44 88C68.3005 88 88 68.3005 88 44C88 19.6995 68.3005 0 44 0C19.6995 0 0 19.6995 0 44C0 68.3005 19.6995 88 44 88ZM44.1796 83.8694C66.1988 83.8694 84.049 66.0193 84.049 44C84.049 21.9807 66.1988 4.13061 44.1796 4.13061C22.1603 4.13061 4.3102 21.9807 4.3102 44C4.3102 66.0193 22.1603 83.8694 44.1796 83.8694Z"
             fill="url(#paint4_linear)"
           />
@@ -268,9 +268,9 @@ function getIconByChainId(id: string) {
               y2="-20.9227"
               gradientUnits="userSpaceOnUse"
             >
-              <stop stop-color="#645AFF" />
-              <stop offset="0.5238" stop-color="#E40C5B" />
-              <stop offset="1" stop-color="#FF4C3B" />
+              <stop stopColor="#645AFF" />
+              <stop offset="0.5238" stopColor="#E40C5B" />
+              <stop offset="1" stopColor="#FF4C3B" />
             </linearGradient>
             <linearGradient
               id="paint1_linear"
@@ -280,9 +280,9 @@ function getIconByChainId(id: string) {
               y2="-20.9227"
               gradientUnits="userSpaceOnUse"
             >
-              <stop stop-color="#645AFF" />
-              <stop offset="0.5238" stop-color="#E40C5B" />
-              <stop offset="1" stop-color="#FF4C3B" />
+              <stop stopColor="#645AFF" />
+              <stop offset="0.5238" stopColor="#E40C5B" />
+              <stop offset="1" stopColor="#FF4C3B" />
             </linearGradient>
             <linearGradient
               id="paint2_linear"
@@ -292,9 +292,9 @@ function getIconByChainId(id: string) {
               y2="-20.9227"
               gradientUnits="userSpaceOnUse"
             >
-              <stop stop-color="#645AFF" />
-              <stop offset="0.5238" stop-color="#E40C5B" />
-              <stop offset="1" stop-color="#FF4C3B" />
+              <stop stopColor="#645AFF" />
+              <stop offset="0.5238" stopColor="#E40C5B" />
+              <stop offset="1" stopColor="#FF4C3B" />
             </linearGradient>
             <linearGradient
               id="paint3_linear"
@@ -304,9 +304,9 @@ function getIconByChainId(id: string) {
               y2="-20.9227"
               gradientUnits="userSpaceOnUse"
             >
-              <stop stop-color="#645AFF" />
-              <stop offset="0.5238" stop-color="#E40C5B" />
-              <stop offset="1" stop-color="#FF4C3B" />
+              <stop stopColor="#645AFF" />
+              <stop offset="0.5238" stopColor="#E40C5B" />
+              <stop offset="1" stopColor="#FF4C3B" />
             </linearGradient>
             <linearGradient
               id="paint4_linear"
@@ -316,9 +316,9 @@ function getIconByChainId(id: string) {
               y2="-20.9227"
               gradientUnits="userSpaceOnUse"
             >
-              <stop stop-color="#645AFF" />
-              <stop offset="0.5238" stop-color="#E40C5B" />
-              <stop offset="1" stop-color="#FF4C3B" />
+              <stop stopColor="#645AFF" />
+              <stop offset="0.5238" stopColor="#E40C5B" />
+              <stop offset="1" stopColor="#FF4C3B" />
             </linearGradient>
           </defs>
         </svg>
@@ -356,7 +356,7 @@ function getIconByChainId(id: string) {
         </svg>
       );
     case "urn:ocn:polkadot:2034": // hydra
-      return <img className="w-full h-full" src={hydra} alt="" />;
+      return <img className="w-full h-full rounded-full" src={hydra} alt="" />;
     case "urn:ocn:polkadot:2094":
       return (
         <svg
@@ -392,8 +392,8 @@ function getIconByChainId(id: string) {
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
+            fillRule="evenodd"
+            clipRule="evenodd"
             d="M300 150C300 232.843 232.843 300 150 300C67.1573 300 0 232.843 0 150C0 67.1573 67.1573 0 150 0C232.843 0 300 67.1573 300 150ZM149.489 31.9888C118.837 31.9888 93.9888 56.837 93.9888 87.4888V123.489C93.9888 154.141 118.837 178.989 149.489 178.989C153.791 178.989 157.979 178.499 162 177.573C164.415 177.017 165.092 174.036 163.3 172.325L163 172.038L131.027 141.5C126.069 136.684 122.989 129.946 122.989 122.489V88.4888C122.989 73.8532 134.853 61.9888 149.489 61.9888C164.124 61.9888 175.989 73.8532 175.989 88.4888V100C175.989 102.209 177.78 104 179.989 104H200.989C203.198 104 204.989 102.209 204.989 100V87.4888C204.989 56.837 180.141 31.9888 149.489 31.9888ZM205 209.5C205 240.152 180.152 265 149.5 265C118.848 265 94 240.152 94 209.5V197C94 194.791 95.7909 193 98 193H119C121.209 193 123 194.791 123 197V208.5C123 223.136 134.864 235 149.5 235C164.136 235 176 223.136 176 208.5V174.5C176 167.042 172.919 160.304 167.961 155.489L135.989 124.951L135.688 124.664C133.896 122.952 134.574 119.972 136.989 119.416C141.01 118.49 145.198 118 149.5 118C180.152 118 205 142.848 205 173.5V209.5Z"
             fill="url(#paint0_linear)"
           />
@@ -406,35 +406,47 @@ function getIconByChainId(id: string) {
               y2="300"
               gradientUnits="userSpaceOnUse"
             >
-              <stop stop-color="#F50083" />
-              <stop offset="1" stop-color="#720497" />
+              <stop stopColor="#F50083" />
+              <stop offset="1" stopColor="#720497" />
             </linearGradient>
           </defs>
         </svg>
       );
     case "urn:ocn:polkadot:2104": // manta
-      return <img className="w-full h-full" src={manta} alt="" />;
+      return <img className="w-full h-full rounded-full" src={manta} alt="" />;
     case "urn:ocn:polkadot:2006": // astar
-      return <img className="size-10 min-w-10" src={astar} alt="" />;
+      return <img className="w-full h-full rounded-full" src={astar} alt="" />;
     case "urn:ocn:kusama:2030":
     case "urn:ocn:polkadot:2030": // bifrost
-      return <img className="w-full h-full" src={bifrost} alt="" />;
+      return (
+        <img className="w-full h-full rounded-full" src={bifrost} alt="" />
+      );
     case "urn:ocn:polkadot:2031": // centrifuge
-      return <img className="size-10 min-w-10" src={centrifuge} alt="" />;
+      return (
+        <img className="w-full h-full rounded-full" src={centrifuge} alt="" />
+      );
     case "urn:ocn:polkadot:2032": // interlay
-      return <img className="size-10 min-w-10" src={interlay} alt="" />;
+      return (
+        <img className="w-full h-full rounded-full" src={interlay} alt="" />
+      );
     case "urn:ocn:polkadot:2019": // composable
-      return <img className="size-10 min-w-10" src={composable} alt="" />;
+      return (
+        <img className="w-full h-full rounded-full" src={composable} alt="" />
+      );
     case "urn:ocn:polkadot:2026": // nodle
-      return <img className="size-10 min-w-10" src={nodle} alt="" />;
+      return <img className="w-full h-full rounded-full" src={nodle} alt="" />;
     case "urn:ocn:polkadot:2035": // phala
-      return <img className="size-10 min-w-10" src={phala} alt="" />;
+      return <img className="w-full h-full rounded-full" src={phala} alt="" />;
     case "urn:ocn:polkadot:2040": // polkadex
-      return <img className="size-10 min-w-10" src={polkadex} alt="" />;
+      return (
+        <img className="w-full h-full rounded-full" src={polkadex} alt="" />
+      );
     case "urn:ocn:polkadot:2037": // unique
-      return <img className="size-10 min-w-10" src={unique} alt="" />;
+      return <img className="w-full h-full rounded-full" src={unique} alt="" />;
     case "urn:ocn:polkadot:3340": // invarch
-      return <img className="size-10 min-w-10" src={invarch} alt="" />;
+      return (
+        <img className="w-full h-full rounded-full" src={invarch} alt="" />
+      );
     default:
       return <span className="w-full h-full"></span>;
   }
@@ -446,7 +458,11 @@ function getIconChain(id: string, size: "md" | "sm" | "xs" = "md") {
     sm: "h-5 w-5 z-10 flex items-center justify-center rounded-full bg-gray-800 ring-1 ring-gray-800",
     xs: "h-4 w-4 z-10 flex items-center justify-center rounded-full bg-gray-800 ring-1 ring-gray-800",
   };
-  return <div className={styles[size]}>{getIconByChainId(id)}</div>;
+  return (
+    <div key={`${id}-${size}`} className={styles[size]}>
+      {getIconByChainId(id)}
+    </div>
+  );
 }
 
 function IconChainFail(id: string) {

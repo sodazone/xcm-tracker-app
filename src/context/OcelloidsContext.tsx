@@ -20,12 +20,17 @@ const OcelloidsContext = React.createContext<OcelloidsContext>(
   {} as unknown as OcelloidsContext,
 );
 
+const httpUrl = import.meta.env.VITE_API_HTTP_URL ?? "http://127.0.0.1:3000";
+const wsUrl = import.meta.env.VITE_API_WS_URL ?? "ws://127.0.0.1:3000";
+const apiKey = import.meta.env.VITE_API_KEY;
+
 export function OcelloidsContextProvider({ children }: PropsWithChildren) {
   const client = useMemo(
     () =>
       new OcelloidsClient({
-        httpUrl: "http://127.0.0.1:3000",
-        wsUrl: "ws://127.0.0.1:3000",
+        httpUrl,
+        wsUrl,
+        apiKey,
       }),
     [],
   );
