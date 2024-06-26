@@ -65,16 +65,9 @@ export function Leg({
           {label}
         </div>
         <div className="flex flex-col bg-gray-900 bg-opacity-50">
-          {(leg.stops as TypedXcmJourneyWaypoint[]).map((stop) => (
+          {(leg.stops as TypedXcmJourneyWaypoint[]).map((stop, i) => (
             <div
-              key={
-                "leg-" +
-                leg.index +
-                "-stop-" +
-                stop.messageHash +
-                "-" +
-                stop.blockNumber
-              }
+              key={"leg-" + leg.index + "-" + i}
               className="flex w-full border-t border-gray-800 border-opacity-70 items-center justify-between px-6 py-4"
             >
               <div className="flex items-center justify-center space-x-4">
