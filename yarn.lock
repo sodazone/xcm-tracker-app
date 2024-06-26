@@ -591,9 +591,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@headlessui/react@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "@headlessui/react@npm:2.1.0"
+"@headlessui/react@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "@headlessui/react@npm:2.1.1"
   dependencies:
     "@floating-ui/react": "npm:^0.26.16"
     "@react-aria/focus": "npm:^3.17.1"
@@ -602,7 +602,7 @@ __metadata:
   peerDependencies:
     react: ^18
     react-dom: ^18
-  checksum: 10c0/022681d641ebdc8fe27fa2150ee51d8e8b1c6f3a90d822330ccdf7b2b999c93eb3ce94294d7435805ad46dc9a1f0ea89610fbdb7e25a2af4f210d9c11988c4ec
+  checksum: 10c0/eb98d245f63745650cfac84e7b2ecd19dfcdc3f53b406c1b4d8b5bd4013cab9beec18101c2254a9aa85d2fca85463d83c6de2c8d32a4b7c75bd32906433f73ff
   languageName: node
   linkType: hard
 
@@ -1115,14 +1115,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sodazone/ocelloids-client@npm:^2.0.4":
-  version: 2.0.4
-  resolution: "@sodazone/ocelloids-client@npm:2.0.4"
+"@sodazone/ocelloids-client@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "@sodazone/ocelloids-client@npm:2.0.5"
   dependencies:
     isows: "npm:^1.0.4"
   peerDependencies:
     ws: "*"
-  checksum: 10c0/b62bd682dff656ce73dddaae8bf97935825ccc3d8b322432ae51eb0ba9e7133fd90cf6e056ccc04833adecce0c468000062c9113f59144cb38cc77a17f5d3c8c
+  checksum: 10c0/1d15ef7d42559b2de8f54dc72f8ec7068ef9cc7b6cce1008a5ba08b3c2523a473478fa1b545507d8f0b76ef1453a159db18aa58bbb594c4ac6aff14bcb2e41c4
   languageName: node
   linkType: hard
 
@@ -3241,10 +3241,10 @@ __metadata:
   resolution: "xcm-tracker-react@workspace:."
   dependencies:
     "@biomejs/biome": "npm:^1.8.2"
-    "@headlessui/react": "npm:^2.1.0"
+    "@headlessui/react": "npm:^2.1.1"
     "@heroicons/react": "npm:^2.1.4"
     "@polkadot/util-crypto": "npm:^12.6.2"
-    "@sodazone/ocelloids-client": "npm:^2.0.4"
+    "@sodazone/ocelloids-client": "npm:^2.0.5"
     "@types/prismjs": "npm:^1.26.4"
     "@types/react": "npm:^18.3.3"
     "@types/react-dom": "npm:^18.3.0"
