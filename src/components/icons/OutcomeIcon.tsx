@@ -94,7 +94,7 @@ export function IconTimeout() {
         >
           <path
             stroke="currentColor"
-            fill-opacity="0"
+            fillOpacity="0"
             strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
