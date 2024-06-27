@@ -52,21 +52,21 @@ export function SelectSubscription() {
       </MenuButton>
       <MenuItems
         anchor="bottom end"
-        className="flex flex-col backdrop-blur-xl w-full origin-top-right border border-white/5 bg-white/5 p-1 text-white [--anchor-gap:var(--spacing-1)] focus:outline-none md:w-[var(--button-width)]"
+        className="flex flex-col text-lg backdrop-blur-xl w-full origin-top-right border md:border-white/50 bg-white/5 p-2 text-white [--anchor-gap:var(--spacing-1)] focus:outline-none md:w-[var(--button-width)]"
       >
         <MenuItem key="all">
           <button
-            className="p-2 text-left data-[focus]:bg-white/10"
+            className="p-3 text-left data-[focus]:bg-white/10 rounded"
             onClick={() => setSubscriptionId("all")}
           >
-            All networks
+            All Networks (*)
           </button>
         </MenuItem>
         {subscriptions.map((s) => {
           return (
             <MenuItem key={s.id}>
               <button
-                className="p-2 text-left data-[focus]:bg-white/10"
+                className="p-3 text-left data-[focus]:bg-white/10 rounded"
                 onClick={() => setSubscriptionId(s.id)}
               >
                 <span className="capitalize">{chainName(s.args.origin)}</span>
