@@ -56,6 +56,7 @@ function getIconByChainId(id: string) {
           viewBox="0 0 441 441"
           className={`w-full h-full rounded-full`}
         >
+          <title>Kusama</title>
           <rect stroke="#000" x="0.5" y="0.5" width="440" height="440" />
           <path
             fill="#fff"
@@ -72,6 +73,7 @@ function getIconByChainId(id: string) {
           viewBox="0 0 64 64"
           xmlns="http://www.w3.org/2000/svg"
         >
+          <title>Westend</title>
           <mask
             id="mask0"
             x="0"
@@ -119,7 +121,14 @@ function getIconByChainId(id: string) {
         </svg>
       );
     case "urn:ocn:rococo:0":
-      return <img className="w-full h-full rounded-full" src={rococo} alt="" />;
+      return (
+        <img
+          className="w-full h-full rounded-full"
+          src={rococo}
+          alt=""
+          title="Rococo"
+        />
+      );
     case "urn:ocn:polkadot:1000": // ah
     case "urn:ocn:kusama:1000":
     case "urn:ocn:rococo:1000":
@@ -135,6 +144,7 @@ function getIconByChainId(id: string) {
           xmlSpace="preserve"
           className="rounded-full"
         >
+          <title>AssetHub</title>
           <g>
             <path
               fill="#321D47"
@@ -169,6 +179,7 @@ function getIconByChainId(id: string) {
           enableBackground="0 0 640 640"
           xmlSpace="preserve"
         >
+          <title>BridgeHub</title>
           <g>
             <path
               fill="#321d47"
@@ -206,6 +217,7 @@ function getIconByChainId(id: string) {
           enableBackground="0 0 640 640"
           xmlSpace="preserve"
         >
+          <title>BridgeHub</title>
           <g>
             <path d="M640,320.3c0,176.9-143.4,320.3-320.3,320.3S-0.5,497.1-0.5,320.3S142.9,0,319.8,0S640,143.4,640,320.3z" />
             <circle fill="#ffffff" cx="320.8" cy="121.1" r="47.4" />
@@ -235,6 +247,7 @@ function getIconByChainId(id: string) {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
+          <title>Acala</title>
           <path
             d="M43.6965 49.5651C41.9108 49.5651 40.1744 49.714 38.4945 49.9987L41.0816 45.5178C41.9549 45.4602 42.8293 45.4311 43.6965 45.4311C45.7279 45.4311 47.7949 45.5987 49.7933 45.9193L39.7478 28.52L23.0252 57.4845L20.6353 53.3451L39.7102 20.3065L39.7495 20.3746L39.7871 20.3094L62.8067 60.1805H58.0269L52.6468 50.8618C49.8436 50.0164 46.8468 49.5651 43.6965 49.5651Z"
             fill="url(#paint0_linear)"
@@ -333,6 +346,7 @@ function getIconByChainId(id: string) {
           id="svg1"
           xmlns="http://www.w3.org/2000/svg"
         >
+          <title>Moonbeam</title>
           <defs id="defs1" />
           <rect
             fill="#000000"
@@ -356,7 +370,14 @@ function getIconByChainId(id: string) {
         </svg>
       );
     case "urn:ocn:polkadot:2034": // hydra
-      return <img className="w-full h-full rounded-full" src={hydra} alt="" />;
+      return (
+        <img
+          className="w-full h-full rounded-full"
+          src={hydra}
+          alt=""
+          title="Hydration"
+        />
+      );
     case "urn:ocn:polkadot:2094":
       return (
         <svg
@@ -370,6 +391,7 @@ function getIconByChainId(id: string) {
           enableBackground="0 0 384 384"
           xmlSpace="preserve"
         >
+          <title>Pendulum</title>
           <g>
             <g>
               <path
@@ -391,6 +413,7 @@ function getIconByChainId(id: string) {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
+          <title>Subsocial</title>
           <path
             fillRule="evenodd"
             clipRule="evenodd"
@@ -413,39 +436,104 @@ function getIconByChainId(id: string) {
         </svg>
       );
     case "urn:ocn:polkadot:2104": // manta
-      return <img className="w-full h-full rounded-full" src={manta} alt="" />;
+      return (
+        <img
+          className="w-full h-full rounded-full"
+          src={manta}
+          alt=""
+          title="Manta"
+        />
+      );
     case "urn:ocn:polkadot:2006": // astar
-      return <img className="w-full h-full rounded-full" src={astar} alt="" />;
+      return (
+        <img
+          className="w-full h-full rounded-full"
+          src={astar}
+          alt=""
+          title="Astar"
+        />
+      );
     case "urn:ocn:kusama:2030":
     case "urn:ocn:polkadot:2030": // bifrost
       return (
-        <img className="w-full h-full rounded-full" src={bifrost} alt="" />
+        <img
+          className="w-full h-full rounded-full"
+          src={bifrost}
+          alt=""
+          title="Bifrost"
+        />
       );
     case "urn:ocn:polkadot:2031": // centrifuge
       return (
-        <img className="w-full h-full rounded-full" src={centrifuge} alt="" />
+        <img
+          className="w-full h-full rounded-full"
+          src={centrifuge}
+          alt=""
+          title="Centrifuge"
+        />
       );
     case "urn:ocn:polkadot:2032": // interlay
       return (
-        <img className="w-full h-full rounded-full" src={interlay} alt="" />
+        <img
+          className="w-full h-full rounded-full"
+          src={interlay}
+          alt=""
+          title="Interlay"
+        />
       );
     case "urn:ocn:polkadot:2019": // composable
       return (
-        <img className="w-full h-full rounded-full" src={composable} alt="" />
+        <img
+          className="w-full h-full rounded-full"
+          src={composable}
+          alt=""
+          title="Composable"
+        />
       );
     case "urn:ocn:polkadot:2026": // nodle
-      return <img className="w-full h-full rounded-full" src={nodle} alt="" />;
+      return (
+        <img
+          className="w-full h-full rounded-full"
+          src={nodle}
+          alt=""
+          title="Nodle"
+        />
+      );
     case "urn:ocn:polkadot:2035": // phala
-      return <img className="w-full h-full rounded-full" src={phala} alt="" />;
+      return (
+        <img
+          className="w-full h-full rounded-full"
+          src={phala}
+          alt=""
+          title="Phala"
+        />
+      );
     case "urn:ocn:polkadot:2040": // polkadex
       return (
-        <img className="w-full h-full rounded-full" src={polkadex} alt="" />
+        <img
+          className="w-full h-full rounded-full"
+          src={polkadex}
+          alt=""
+          title="Polkadex"
+        />
       );
     case "urn:ocn:polkadot:2037": // unique
-      return <img className="w-full h-full rounded-full" src={unique} alt="" />;
+      return (
+        <img
+          className="w-full h-full rounded-full"
+          src={unique}
+          alt=""
+          title="Unique"
+        />
+      );
     case "urn:ocn:polkadot:3340": // invarch
       return (
-        <img className="w-full h-full rounded-full" src={invarch} alt="" />
+        <img
+          className="w-full h-full rounded-full"
+          src={invarch}
+          alt=""
+          title="Invarch"
+        />
       );
     default:
       return <span className="w-full h-full"></span>;
