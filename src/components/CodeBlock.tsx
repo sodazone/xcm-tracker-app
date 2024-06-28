@@ -5,7 +5,7 @@ export function CodeBlock({ code }: { code: string }) {
   return (
     <pre>
       <code
-        className="language-json overflow-auto max-h-40"
+        className="language-json"
         dangerouslySetInnerHTML={{ __html: highlighted }}
       ></code>
     </pre>

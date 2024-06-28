@@ -148,7 +148,7 @@ export function Journey({ journey, pinned, onPinClick }: Props) {
               <div className="heading">XCM Origin Message Hash</div>
               <div className="panel">{journey.origin.messageHash}</div>
               <div className="heading">XCM Instructions</div>
-              <div className="panel">
+              <div className="panel overflow-auto max-h-64">
                 <CodeBlock
                   code={JSON.stringify(journey.instructions, null, 2)}
                 />
