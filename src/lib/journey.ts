@@ -70,9 +70,9 @@ function updateFailures(journey: XcmJourney): XcmJourney {
   }
 
   journey.destination.outcome = "Fail";
-  journey.destination.skipped = true;
 
   if (failureLegIndex < journey.legs.length - 1) {
+    journey.destination.skipped = true;
     journey.legs = journey.legs.map((l, i) => {
       if (i > failureLegIndex) {
         return {
