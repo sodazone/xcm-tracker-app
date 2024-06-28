@@ -34,9 +34,9 @@ export function SelectSubscription() {
 
   const subs = getSelectedSubscriptions();
 
-  const origins = uniques(subs.map((s) => s.args.origin));
-  const destinations = uniques(subs.map((s) => s.args.destinations));
-  const senders = uniques(subs.map((s) => s.args.senders ?? "*"));
+  const origins = uniques(subs.map((s) => s.args.origin)).sort();
+  const destinations = uniques(subs.map((s) => s.args.destinations)).sort();
+  const senders = uniques(subs.map((s) => s.args.senders ?? "*")).sort();
 
   const menu = (
     <Menu>
