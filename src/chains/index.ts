@@ -11,12 +11,12 @@ export const chains: Record<string, ChainProperties> = {
     subscanLink: "https://polkadot.subscan.io",
   },
   "urn:ocn:polkadot:1000": {
-    name: "asset hub",
+    name: "polkadot asset hub",
     ss58: 0,
     subscanLink: "https://assethub-polkadot.subscan.io",
   },
   "urn:ocn:polkadot:1002": {
-    name: "bridge hub",
+    name: "polkadot bridge hub",
     ss58: 0,
     subscanLink: "https://bridgehub-polkadot.subscan.io/",
   },
@@ -117,12 +117,12 @@ export const chains: Record<string, ChainProperties> = {
     subscanLink: "https://kusama.subscan.io",
   },
   "urn:ocn:kusama:1000": {
-    name: "asset hub",
+    name: "kusama asset hub",
     ss58: 2,
     subscanLink: "https://assethub-kusama.subscan.io",
   },
   "urn:ocn:kusama:1002": {
-    name: "bridge hub",
+    name: "kusama bridge hub",
     ss58: 2,
     subscanLink: "https://bridgehub-kusama.subscan.io",
   },

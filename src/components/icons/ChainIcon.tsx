@@ -130,7 +130,6 @@ function getIconByChainId(id: string) {
         />
       );
     case "urn:ocn:polkadot:1000": // ah
-    case "urn:ocn:kusama:1000":
     case "urn:ocn:rococo:1000":
     case "urn:ocn:westend:1000":
       return (
@@ -164,8 +163,39 @@ function getIconByChainId(id: string) {
           </g>
         </svg>
       );
+    case "urn:ocn:kusama:1000":
+      return (
+        <svg
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlnsXlink="http://www.w3.org/1999/xlink"
+          x="0px"
+          y="0px"
+          viewBox="0 0 640 640"
+          xmlSpace="preserve"
+          className="rounded-full"
+        >
+          <title>Kusama AssetHub</title>
+          <g>
+            <path
+              fill="#000000"
+              d="M637.3,319.3c0,175.2-142,317.3-317.3,317.3S2.7,494.6,2.7,319.3S144.8,2.1,320,2.1S637.3,144.1,637.3,319.3z"
+            />
+            <path
+              fill="#FFFFFF"
+              d="M444.2,392.4h-67.6l-12.7-31h-85.8l-12.7,31h-67.6l80.9-184.3h84.5L444.2,392.4z M321.1,256l-22.4,55h44.7
+      L321.1,256z"
+            />
+            <circle fill="#FFFFFF" cx="321" cy="122.1" r="46.9" />
+            <circle fill="#FFFFFF" cx="321" cy="517.1" r="46.9" />
+            <circle fill="#FFFFFF" cx="147.8" cy="216" r="46.9" />
+            <circle fill="#FFFFFF" cx="494.3" cy="216" r="46.9" />
+            <circle fill="#FFFFFF" cx="147.8" cy="424.8" r="46.9" />
+            <circle fill="#FFFFFF" cx="494.3" cy="424.8" r="46.9" />
+          </g>
+        </svg>
+      );
     case "urn:ocn:polkadot:1002": // bridge hub
-    case "urn:ocn:kusama:1002":
     case "urn:ocn:westend:1002":
       return (
         <svg
@@ -193,6 +223,44 @@ function getIconByChainId(id: string) {
             <circle fill="#e40b7b" cx="495.7" cy="426.7" r="47.4" />
             <path
               fill="#ffffff"
+              d="M425.2,335.7c-5-7.5-12.5-13.3-22.4-17.6c-3.2-1.4-6.7-2.5-10.4-3.5c0.8-0.4,1.5-0.8,2.3-1.2
+		c8.8-5.1,15.2-11.4,19.1-18.9c3.9-7.5,5.9-15.8,5.9-24.9c0-10-2.3-18.6-6.9-25.8c-4.6-7.3-11.3-12.8-19.9-16.7
+		c-8.7-3.9-19-5.8-31-5.8h-148l14.8,96.4l-14.8,101.7h153.5c14.2,0,26.1-2.4,36-7.3c9.8-4.8,17.2-11.6,22.1-20.1
+		c4.9-8.6,7.4-18.4,7.4-29.4C432.7,352.1,430.2,343.2,425.2,335.7z M366,311L366,311C366,311,366,311,366,311L366,311z M343.9,268.1
+		c2.4,1.2,4.3,2.9,5.5,5c1.3,2.1,1.9,4.5,1.9,7.3c0,2.9-0.7,5.5-2.1,7.8c-1.4,2.3-3.3,4.1-5.7,5.4c-2.4,1.3-5.1,1.9-8.2,1.9h-46.3
+		l-4.7-29.1h51.1C338.6,266.3,341.5,266.9,343.9,268.1z M359.4,369.5c-3.3,3.1-7.8,4.6-13.6,4.6h-61.8l5.2-34.3h56
+		c6,0,10.7,1.6,14,4.8c3.4,3.2,5,7.1,5,12.3C364.4,362.2,362.7,366.4,359.4,369.5z"
+            />
+          </g>
+        </svg>
+      );
+    case "urn:ocn:kusama:1002":
+      return (
+        <svg
+          version="1.1"
+          id="Layer_1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlnsXlink="http://www.w3.org/1999/xlink"
+          x="0px"
+          y="0px"
+          viewBox="0 0 640 640"
+          enableBackground="0 0 640 640"
+          xmlSpace="preserve"
+        >
+          <title>Kusama BridgeHub</title>
+          <g>
+            <path
+              fill="#000000"
+              d="M640,320.3c0,176.9-143.4,320.3-320.3,320.3S-0.5,497.1-0.5,320.3S142.9,0,319.8,0S640,143.4,640,320.3z"
+            />
+            <circle fill="#FFFFFF" cx="320.8" cy="121.1" r="47.4" />
+            <circle fill="#FFFFFF" cx="320.8" cy="519.9" r="47.4" />
+            <circle fill="#FFFFFF" cx="146" cy="215.9" r="47.4" />
+            <circle fill="#FFFFFF" cx="495.7" cy="215.9" r="47.4" />
+            <circle fill="#FFFFFF" cx="146" cy="426.7" r="47.4" />
+            <circle fill="#FFFFFF" cx="495.7" cy="426.7" r="47.4" />
+            <path
+              fill="#FFFFFF"
               d="M425.2,335.7c-5-7.5-12.5-13.3-22.4-17.6c-3.2-1.4-6.7-2.5-10.4-3.5c0.8-0.4,1.5-0.8,2.3-1.2
 		c8.8-5.1,15.2-11.4,19.1-18.9c3.9-7.5,5.9-15.8,5.9-24.9c0-10-2.3-18.6-6.9-25.8c-4.6-7.3-11.3-12.8-19.9-16.7
 		c-8.7-3.9-19-5.8-31-5.8h-148l14.8,96.4l-14.8,101.7h153.5c14.2,0,26.1-2.4,36-7.3c9.8-4.8,17.2-11.6,22.1-20.1
