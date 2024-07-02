@@ -11,7 +11,7 @@ A web application for tracking XCM executions over WebSockets.
 
 ## How it looks
 
-![All Networks](https://github.com/sodazone/xcm-tracker-app/blob/main/public/xcm-tracker-all-networks.png)
+![All Networks](https://github.com/sodazone/xcm-tracker-app/blob/main/public/xcm-tracker-all-networks-big.png)
 
 ## Running
 
