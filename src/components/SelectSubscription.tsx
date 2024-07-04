@@ -15,6 +15,7 @@ export function SelectSubscription() {
   const {
     subscriptionId,
     setSubscriptionId,
+    loading,
     subscriptions,
     getSelectedSubscriptions,
   } = useOcelloidsContext();
@@ -28,8 +29,16 @@ export function SelectSubscription() {
     return sub ? chainName(sub.args.origin) : undefined;
   }
 
-  if (!subscriptions) {
-    return null;
+  if (loading) {
+    return null
+  }
+
+  if (subscriptions.length === 0) {
+    return <div className="mt-20 p-4 text-center">
+      There are no active subscriptions (◡︵◡)
+     <br/>
+     Try again later 
+    </div>;
   }
 
   const subs = getSelectedSubscriptions();
