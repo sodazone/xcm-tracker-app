@@ -40,14 +40,16 @@ export function OcelloidsContextProvider({ children }: PropsWithChildren) {
     Subscription<xcm.XcmInputs>[]
   >([]);
   const [subscriptionId, setSubscriptionId] = useState<string>();
-  const [loading, setLoading] = useState<boolean>(true)
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     async function getSubscriptions() {
       const subs = await client.agent<xcm.XcmInputs>("xcm").allSubscriptions();
-      const wsSubs = subs.filter(s => s.channels.some(chan => chan.type === "websocket"))
+      const wsSubs = subs.filter((s) =>
+        s.channels.some((chan) => chan.type === "websocket"),
+      );
       setSubscriptions(wsSubs);
-      setLoading(false)
+      setLoading(false);
     }
 
     getSubscriptions();

@@ -30,15 +30,17 @@ export function SelectSubscription() {
   }
 
   if (loading) {
-    return null
+    return null;
   }
 
   if (subscriptions.length === 0) {
-    return <div className="mt-20 p-4 text-center">
-      There are no active subscriptions (◡︵◡)
-     <br/>
-     Try again later 
-    </div>;
+    return (
+      <div className="mt-20 p-4 text-center">
+        There are no active subscriptions (◡︵◡)
+        <br />
+        Try again later
+      </div>
+    );
   }
 
   const subs = getSelectedSubscriptions();
