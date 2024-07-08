@@ -173,7 +173,7 @@ export function Journey({ journey, pinned, onPinClick }: Props) {
               {journey.forwardId && (
                 <>
                   <div className="heading">XCM Forward ID</div>
-                  <span className="panel">${journey.forwardId}</span>
+                  <span className="panel">{journey.forwardId}</span>
                 </>
               )}
               {journey.topicId && (
