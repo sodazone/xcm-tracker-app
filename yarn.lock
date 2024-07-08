@@ -280,7 +280,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@biomejs/biome@npm:^1.8.2":
+"@biomejs/biome@npm:^1.8.3":
   version: 1.8.3
   resolution: "@biomejs/biome@npm:1.8.3"
   dependencies:
@@ -584,7 +584,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@headlessui/react@npm:^2.1.1":
+"@headlessui/react@npm:^2.1.2":
   version: 2.1.2
   resolution: "@headlessui/react@npm:2.1.2"
   dependencies:
@@ -1108,15 +1108,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sodazone/ocelloids-client@npm:^2.0.5":
-  version: 2.1.4
-  resolution: "@sodazone/ocelloids-client@npm:2.1.4"
+"@sodazone/ocelloids-client@npm:^2.1.5":
+  version: 2.1.5
+  resolution: "@sodazone/ocelloids-client@npm:2.1.5"
   dependencies:
     isows: "npm:^1.0.4"
     zod: "npm:^3.23.8"
   peerDependencies:
     ws: "*"
-  checksum: 10c0/74344caf6099503ec3ef404162f9e641775feb6cc2bbf86f744248c2f7fe39968b8fbb566b97e1119f7809bea351a32c317083b33d193b090b9cd9b8b1cac75c
+  checksum: 10c0/6deb4476ec234467d2a55814af373e9dfdd01e106af556b1d9d1c724b80e9d4f6a3cf26e8868601cb6a117a6a663de93bd1a3dc4e69cd94409e6acfabc33b20a
   languageName: node
   linkType: hard
 
@@ -2582,7 +2582,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.4.23, postcss@npm:^8.4.38, postcss@npm:^8.4.39":
+"postcss@npm:^8.4.23, postcss@npm:^8.4.39":
   version: 8.4.39
   resolution: "postcss@npm:8.4.39"
   dependencies:
@@ -3073,7 +3073,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.5.2":
+"typescript@npm:^5.5.3":
   version: 5.5.3
   resolution: "typescript@npm:5.5.3"
   bin:
@@ -3083,7 +3083,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5.5.2#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A^5.5.3#optional!builtin<compat/typescript>":
   version: 5.5.3
   resolution: "typescript@patch:typescript@npm%3A5.5.3#optional!builtin<compat/typescript>::version=5.5.3&hash=b45daf"
   bin:
@@ -3148,7 +3148,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^5.3.1":
+"vite@npm:^5.3.3":
   version: 5.3.3
   resolution: "vite@npm:5.3.3"
   dependencies:
@@ -3251,11 +3251,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "xcm-tracker-react@workspace:."
   dependencies:
-    "@biomejs/biome": "npm:^1.8.2"
-    "@headlessui/react": "npm:^2.1.1"
+    "@biomejs/biome": "npm:^1.8.3"
+    "@headlessui/react": "npm:^2.1.2"
     "@heroicons/react": "npm:^2.1.4"
     "@polkadot/util-crypto": "npm:^12.6.2"
-    "@sodazone/ocelloids-client": "npm:^2.0.5"
+    "@sodazone/ocelloids-client": "npm:^2.1.5"
     "@types/prismjs": "npm:^1.26.4"
     "@types/react": "npm:^18.3.3"
     "@types/react-dom": "npm:^18.3.0"
@@ -3263,13 +3263,13 @@ __metadata:
     autoprefixer: "npm:^10.4.19"
     hash-wasm: "npm:^4.11.0"
     immutable: "npm:^4.3.6"
-    postcss: "npm:^8.4.38"
+    postcss: "npm:^8.4.39"
     prismjs: "npm:^1.29.0"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
     tailwindcss: "npm:^3.4.4"
-    typescript: "npm:^5.5.2"
-    vite: "npm:^5.3.1"
+    typescript: "npm:^5.5.3"
+    vite: "npm:^5.3.3"
     ws: "npm:^8.17.1"
     zustand: "npm:^4.5.4"
   languageName: unknown
