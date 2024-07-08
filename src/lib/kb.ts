@@ -198,7 +198,9 @@ export function humanize(journey: XcmJourney): HumanizedXcm {
   );
   if (
     _instruction !== undefined &&
-    (type === XcmJourneyType.Transfer || type === XcmJourneyType.Teleport)
+    (type === XcmJourneyType.Transfer || type === XcmJourneyType.Teleport) &&
+    !hopTransfer &&
+    !bridgeMessage // hops and bridged assets need to be handled differently T.T
   ) {
     const multiAssets =
       _instruction.ReserveAssetDeposited ||

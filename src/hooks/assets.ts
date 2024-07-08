@@ -11,10 +11,10 @@ type Asset = {
 };
 
 type AssetQueryData = {
-  location: string,
-  amount: bigint,
-  version?: XcmVersion
-}
+  location: string;
+  amount: bigint;
+  version?: XcmVersion;
+};
 
 type StoredMetadata = {
   data: NonNullable<steward.AssetMetadata>;
@@ -28,50 +28,44 @@ function needsUpdate(lastUpdated: number) {
 export function useFormattedAssets(chainId: string, humanized?: HumanizedXcm) {
   const { client } = useOcelloidsContext();
   const [formattedAssets, setFormattedAssets] = useState<Asset[]>([]);
-  const [assetQueryData, setAssetQueryData] = useState<AssetQueryData[]>([])
+  const [assetQueryData, setAssetQueryData] = useState<AssetQueryData[]>([]);
 
   useEffect(() => {
     if (humanized?.assets && humanized?.assets.length > 0) {
-      console.log('checking local storage...')
-      const formatted: Asset[] = []
-      const queryData: AssetQueryData[] = []
+      const formatted: Asset[] = [];
+      const queryData: AssetQueryData[] = [];
       for (const asset of humanized.assets) {
         const location = JSON.stringify(asset.location, (_, value) =>
           typeof value === "string" ? value.replaceAll(",", "") : value,
-        )
-        const amount = BigInt(asset.amount.replaceAll(",", ""))
-        const key = `asset-${chainId}-${location}`
-        const stored = getStorageObject<StoredMetadata>(key)
+        );
+        const amount = BigInt(asset.amount.replaceAll(",", ""));
+        const key = `asset-${chainId}-${location}`;
+        const stored = getStorageObject<StoredMetadata>(key);
         if (stored && !needsUpdate(stored.lastUpdated)) {
-          console.log('in storage')
           formatted.push({
             amount,
             decimals: stored.data.decimals || 0,
             symbol: stored.data.symbol || "TOKEN",
           });
         } else {
-          console.log('to query')
           queryData.push({
             location,
             amount,
-            version: humanized.version
-          })
+            version: humanized.version,
+          });
         }
       }
-      setFormattedAssets(formatted)
-      setAssetQueryData(queryData)
+      setFormattedAssets(formatted);
+      setAssetQueryData(queryData);
     }
-  }, [humanized, chainId])
+  }, [humanized, chainId]);
 
   useEffect(() => {
     const formatted: Asset[] = [];
 
-    async function queryAssetsMetadata(
-      assetQueryData: AssetQueryData[]
-    ) {
-      console.log('querying api', assetQueryData)
-      const version = assetQueryData[0].version
-      const locations = assetQueryData.map(d => d.location)
+    async function queryAssetsMetadata(assetQueryData: AssetQueryData[]) {
+      const version = assetQueryData[0].version;
+      const locations = assetQueryData.map((d) => d.location);
       try {
         const { items } = await client
           .agent("steward")
@@ -94,14 +88,11 @@ export function useFormattedAssets(chainId: string, humanized?: HumanizedXcm) {
               symbol: metadata.symbol || "TOKEN",
             });
 
-            const key = `asset-${chainId}-${assetQueryData[index].location}`
-            setLocalStorage<StoredMetadata>(
-              key,
-              {
-                data: metadata,
-                lastUpdated: Date.now()
-              }
-            )
+            const key = `asset-${chainId}-${assetQueryData[index].location}`;
+            setLocalStorage<StoredMetadata>(key, {
+              data: metadata,
+              lastUpdated: Date.now(),
+            });
           } else {
             // unknown token
             formatted.push({
@@ -111,7 +102,7 @@ export function useFormattedAssets(chainId: string, humanized?: HumanizedXcm) {
             });
           }
         }
-        setFormattedAssets(prev => prev.concat(formatted));
+        setFormattedAssets((prev) => prev.concat(formatted));
       } catch (error) {
         console.error(error);
       }

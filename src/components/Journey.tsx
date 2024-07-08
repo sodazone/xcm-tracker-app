@@ -71,19 +71,18 @@ export function Journey({ journey, pinned, onPinClick }: Props) {
             >
               {pinned ? <IconUnpin /> : <IconPin />}
             </button>
-            <div className="w-full text-gray-400 justify-between items-center hidden md:inline-flex">
+            <div className="w-full text-gray-400 justify-between items-center hidden md:inline-flex md:space-x-4">
               <div className="flex items-center space-x-4">
                 {getXcmTypeBadge(humanized.type)}
-                {formattedAssets.length === 1 && (
-                  <Balance
-                    amount={formattedAssets[0].amount}
-                    decimals={formattedAssets[0].decimals}
-                    symbol={formattedAssets[0].symbol}
-                  />
-                )}
-                {formattedAssets.length > 1 && (
-                  <div className="text-gray-300">
-                    {formattedAssets.length} Assets
+                {formattedAssets.length > 0 && (
+                  <div className="flex flex-wrap space-x-4">
+                    {formattedAssets.map((a) => (
+                      <Balance
+                        amount={a.amount}
+                        decimals={a.decimals}
+                        symbol={a.symbol}
+                      />
+                    ))}
                   </div>
                 )}
                 <div className="flex space-x-2 items-center">
@@ -118,17 +117,15 @@ export function Journey({ journey, pinned, onPinClick }: Props) {
 
             <div className="flex flex-col text-gray-400 md:hidden">
               <div className="w-fit">{getXcmTypeBadge(humanized.type)}</div>
-              {formattedAssets.length === 1 && (
-                <Balance
-                  className="mt-4"
-                  amount={formattedAssets[0].amount}
-                  decimals={formattedAssets[0].decimals}
-                  symbol={formattedAssets[0].symbol}
-                />
-              )}
-              {formattedAssets.length > 1 && (
-                <div className="text-gray-300 mt-4">
-                  {formattedAssets.length} Assets
+              {formattedAssets.length > 0 && (
+                <div className="mt-4">
+                  {formattedAssets.map((a) => (
+                    <Balance
+                      amount={a.amount}
+                      decimals={a.decimals}
+                      symbol={a.symbol}
+                    />
+                  ))}
                 </div>
               )}
               <div className="flex flex-col space-y-4 mt-6 mb-4">
@@ -173,21 +170,6 @@ export function Journey({ journey, pinned, onPinClick }: Props) {
           </button>
           {expanded && (
             <div className="xcm-details flex flex-col">
-              {formattedAssets.length > 1 && (
-                <>
-                <div className="heading">Assets</div>
-                <div className="flex flex-col space-y-1 panel">
-                  {formattedAssets.map((asset) => (
-                    <Balance
-                    key={`${asset.amount}-${asset.symbol}`}
-                      amount={asset.amount}
-                      decimals={asset.decimals}
-                      symbol={asset.symbol}
-                    />
-                  ))}
-                </div>
-                </>
-              )}
               {journey.forwardId && (
                 <>
                   <div className="heading">XCM Forward ID</div>
