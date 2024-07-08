@@ -174,15 +174,19 @@ export function Journey({ journey, pinned, onPinClick }: Props) {
           {expanded && (
             <div className="xcm-details flex flex-col">
               {formattedAssets.length > 1 && (
-                <div className="flex flex-col space-y-1">
+                <>
+                <div className="heading">Assets</div>
+                <div className="flex flex-col space-y-1 panel">
                   {formattedAssets.map((asset) => (
                     <Balance
+                    key={`${asset.amount}-${asset.symbol}`}
                       amount={asset.amount}
                       decimals={asset.decimals}
                       symbol={asset.symbol}
                     />
                   ))}
                 </div>
+                </>
               )}
               {journey.forwardId && (
                 <>

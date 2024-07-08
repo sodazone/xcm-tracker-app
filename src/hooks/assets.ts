@@ -1,7 +1,8 @@
 import { steward } from "@sodazone/ocelloids-client";
 import { useEffect, useState } from "react";
 import { useOcelloidsContext } from "../context/OcelloidsContext";
-import { HumanizedXcm, XcmAsset, XcmVersion } from "../lib/kb";
+import { HumanizedXcm, XcmVersion } from "../lib/kb";
+import { getStorageObject, setLocalStorage } from "../lib/utils";
 
 type Asset = {
   amount: bigint;
@@ -9,23 +10,68 @@ type Asset = {
   symbol: string;
 };
 
+type AssetQueryData = {
+  location: string,
+  amount: bigint,
+  version?: XcmVersion
+}
+
+type StoredMetadata = {
+  data: NonNullable<steward.AssetMetadata>;
+  lastUpdated: number;
+};
+
+function needsUpdate(lastUpdated: number) {
+  return Date.now() - lastUpdated > 24 * 60 * 60 * 1000;
+}
+
 export function useFormattedAssets(chainId: string, humanized?: HumanizedXcm) {
   const { client } = useOcelloidsContext();
   const [formattedAssets, setFormattedAssets] = useState<Asset[]>([]);
+  const [assetQueryData, setAssetQueryData] = useState<AssetQueryData[]>([])
+
+  useEffect(() => {
+    if (humanized?.assets && humanized?.assets.length > 0) {
+      console.log('checking local storage...')
+      const formatted: Asset[] = []
+      const queryData: AssetQueryData[] = []
+      for (const asset of humanized.assets) {
+        const location = JSON.stringify(asset.location, (_, value) =>
+          typeof value === "string" ? value.replaceAll(",", "") : value,
+        )
+        const amount = BigInt(asset.amount.replaceAll(",", ""))
+        const key = `asset-${chainId}-${location}`
+        const stored = getStorageObject<StoredMetadata>(key)
+        if (stored && !needsUpdate(stored.lastUpdated)) {
+          console.log('in storage')
+          formatted.push({
+            amount,
+            decimals: stored.data.decimals || 0,
+            symbol: stored.data.symbol || "TOKEN",
+          });
+        } else {
+          console.log('to query')
+          queryData.push({
+            location,
+            amount,
+            version: humanized.version
+          })
+        }
+      }
+      setFormattedAssets(formatted)
+      setAssetQueryData(queryData)
+    }
+  }, [humanized, chainId])
 
   useEffect(() => {
     const formatted: Asset[] = [];
 
     async function queryAssetsMetadata(
-      assets: XcmAsset[],
-      version?: XcmVersion,
+      assetQueryData: AssetQueryData[]
     ) {
-      const locations = assets.map((a) =>
-        JSON.stringify(a.location, (_, value) =>
-          typeof value === "string" ? value.replaceAll(",", "") : value,
-        ),
-      );
-
+      console.log('querying api', assetQueryData)
+      const version = assetQueryData[0].version
+      const locations = assetQueryData.map(d => d.location)
       try {
         const { items } = await client
           .agent("steward")
@@ -43,22 +89,38 @@ export function useFormattedAssets(chainId: string, humanized?: HumanizedXcm) {
         for (const [index, metadata] of items.entries()) {
           if (metadata !== null) {
             formatted.push({
-              amount: BigInt(assets[index].amount.replaceAll(",", "")),
+              amount: assetQueryData[index].amount,
               decimals: metadata.decimals || 0,
               symbol: metadata.symbol || "TOKEN",
             });
+
+            const key = `asset-${chainId}-${assetQueryData[index].location}`
+            setLocalStorage<StoredMetadata>(
+              key,
+              {
+                data: metadata,
+                lastUpdated: Date.now()
+              }
+            )
+          } else {
+            // unknown token
+            formatted.push({
+              amount: assetQueryData[index].amount,
+              decimals: 0,
+              symbol: "TOKEN",
+            });
           }
         }
-        setFormattedAssets(formatted);
+        setFormattedAssets(prev => prev.concat(formatted));
       } catch (error) {
         console.error(error);
       }
     }
 
-    if (humanized?.assets) {
-      queryAssetsMetadata(humanized.assets, humanized.version);
+    if (assetQueryData.length > 0) {
+      queryAssetsMetadata(assetQueryData);
     }
-  }, [humanized, client, chainId]);
+  }, [assetQueryData, client, chainId]);
 
   return formattedAssets;
 }
