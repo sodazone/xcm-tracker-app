@@ -120,6 +120,7 @@ export function Journey({ journey, pinned, onPinClick }: Props) {
               <div className="w-fit">{getXcmTypeBadge(humanized.type)}</div>
               {formattedAssets.length === 1 && (
                 <Balance
+                  className="mt-4"
                   amount={formattedAssets[0].amount}
                   decimals={formattedAssets[0].decimals}
                   symbol={formattedAssets[0].symbol}

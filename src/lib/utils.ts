@@ -137,3 +137,7 @@ export function getStorageObject<T>(key: string): T | null {
 
   return JSON.parse(val) as T;
 }
+
+export function classNames(...classes: (string | undefined)[]) {
+  return classes.filter(Boolean).join(" ");
+}

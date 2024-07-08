@@ -1,4 +1,4 @@
-import { formatBalance } from "../lib/utils";
+import { classNames, formatBalance } from "../lib/utils";
 
 export function FormatFigures({
   amount,
@@ -26,11 +26,17 @@ type Props = {
   amount: bigint;
   decimals?: number;
   symbol?: string;
+  className?: string;
 };
 
-export function Balance({ amount, decimals = 0, symbol = undefined }: Props) {
+export function Balance({
+  amount,
+  decimals = 0,
+  symbol = undefined,
+  className = "",
+}: Props) {
   return (
-    <div className="font-mono text-wrap max-w-full">
+    <div className={classNames("font-mono text-wrap max-w-full", className)}>
       <FormatFigures amount={formatBalance(amount, decimals)} symbol={symbol} />
     </div>
   );
