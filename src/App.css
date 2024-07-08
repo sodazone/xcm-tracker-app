@@ -4,12 +4,16 @@
 @tailwind components;
 @tailwind utilities;
 
+.amt {
+  @apply text-gray-300
+}
+
 .xcm-details .heading {
   background-color: #27212e;
   @apply py-1 text-sm px-4 text-gray-400 capitalize;
- }
+}
 
- .xcm-details .panel {
+.xcm-details .panel {
   background-color: #27212ede;
   @apply text-sm font-mono py-4 px-6 break-all;
- }
+}

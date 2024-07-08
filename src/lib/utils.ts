@@ -15,6 +15,82 @@ const dateTimeFormatShort = new Intl.DateTimeFormat("en-US", {
   timeStyle: "short",
 });
 
+function formatUnits(value: bigint, decimals: number) {
+  let display = value.toString();
+  display = display.padStart(decimals, "0");
+
+  let [integer, fraction] = [
+    display.slice(0, display.length - decimals),
+    display.slice(display.length - decimals),
+  ];
+  fraction = fraction.replace(/(0+)$/, "");
+  return (integer || "0") + "." + (fraction || "0");
+}
+
+export function humanizeNumber(
+  value: number,
+  maximumFractionDigits = 4,
+  siSeparator = " ",
+  locale = "en-US",
+): string {
+  const absValue = Math.abs(value);
+
+  const formatter = new Intl.NumberFormat(locale, {
+    minimumFractionDigits: 0,
+    maximumFractionDigits,
+  });
+  if (absValue >= 1_000_000_000_000_000_000_000_000) {
+    return (
+      formatter.format(value / 1_000_000_000_000_000_000_000_000) +
+      siSeparator +
+      "Y"
+    );
+  } else if (absValue >= 1_000_000_000_000_000_000_000) {
+    return (
+      formatter.format(value / 1_000_000_000_000_000_000_000) +
+      siSeparator +
+      "Z"
+    );
+  } else if (absValue >= 1_000_000_000_000_000_000) {
+    return (
+      formatter.format(value / 1_000_000_000_000_000_000) + siSeparator + "E"
+    );
+  } else if (absValue >= 1_000_000_000_000_000) {
+    return formatter.format(value / 1_000_000_000_000_000) + siSeparator + "P";
+  } else if (absValue >= 1_000_000_000_000) {
+    return formatter.format(value / 1_000_000_000_000) + siSeparator + "T";
+  } else if (absValue >= 1_000_000_000) {
+    return formatter.format(value / 1_000_000_000) + siSeparator + "B";
+  } else if (absValue >= 1_000_000) {
+    return formatter.format(value / 1_000_000) + siSeparator + "M";
+  } else if (absValue >= 100_000) {
+    return `${formatter.format(value / 1_000)}K` + siSeparator;
+  } else if (absValue > 10_000) {
+    return `${formatter.format(Math.round(absValue))}`;
+  }
+
+  return `${formatter.format(value)}`;
+}
+
+export function formatBalance(
+  value: bigint,
+  decimals: number,
+  maximumFractionDigits?: number,
+) {
+  const units = formatUnits(value, decimals);
+  const unitsNum = Number(units);
+
+  if (unitsNum === 0) {
+    return "0";
+  } else if (Math.abs(unitsNum) < 0.000001) {
+    return "<0.000001";
+  } else if (Math.abs(unitsNum) < 0.001) {
+    return humanizeNumber(unitsNum, 6);
+  }
+
+  return humanizeNumber(unitsNum, maximumFractionDigits);
+}
+
 export function trunc(str: string, len = 11, sep = "…") {
   if (str.length <= len) {
     return str;
@@ -50,4 +126,14 @@ export function formatDateTime(timestamp: number, short: boolean = false) {
   }
 
   return dateTimeFormatLong.format(timestamp);
+}
+
+export function getStorageObject<T>(key: string): T | null {
+  const val = localStorage.getItem(key);
+
+  if (val === null) {
+    return null;
+  }
+
+  return JSON.parse(val) as T;
 }
