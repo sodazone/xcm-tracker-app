@@ -5,7 +5,12 @@ import { Map as IMap } from "immutable";
 import { xcm } from "@sodazone/ocelloids-client";
 
 import { useOcelloidsContext } from "../context/OcelloidsContext";
-import { XcmJourney, mergeJourney, toJourneyId } from "../lib/journey";
+import {
+  XcmJourney,
+  mergeJourney,
+  toJourney,
+  toJourneyId,
+} from "../lib/journey";
 
 import { FixedSizedCache } from "../lib/cache";
 import { Journey } from "./Journey";
@@ -55,8 +60,27 @@ export function SubscriptionStreams() {
                         pinned: prev.pinned.set(id, merged),
                       };
                     } else {
-                      const journey = prev.journeys.get(id);
-                      prev.journeys.set(id, mergeJourney(xcm, journey));
+                      let journey;
+
+                      // is the first message
+                      if (prev.journeys.length === 0) {
+                        journey = toJourney(xcm);
+                        if (xcm.type === "xcm.received") {
+                          journey.legs.forEach((leg) => {
+                            leg.stops.forEach((stop) => {
+                              if (stop.outcome === undefined) {
+                                stop.skipped = true;
+                                stop.outcome = "Skip";
+                              }
+                            });
+                          });
+                        }
+                      } else {
+                        const prevJourney = prev.journeys.get(id);
+                        journey = mergeJourney(xcm, prevJourney);
+                      }
+
+                      prev.journeys.set(id, journey);
                       return {
                         pinned: prev.pinned,
                         journeys: prev.journeys,

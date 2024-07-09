@@ -1,10 +1,12 @@
 import { AnyJson, SignerData, xcm } from "@sodazone/ocelloids-client";
 
+export type XcmJourneyOutcome = "Success" | "Fail" | "Skip";
+
 export type XcmJourneyWaypoint = {
   chainId: string;
   messageHash?: string;
   blockNumber?: string;
-  outcome?: string;
+  outcome?: XcmJourneyOutcome;
   error?: AnyJson;
   event?: AnyJson;
   extrinsicId?: string;
@@ -117,7 +119,7 @@ function updateTimeout(journey: XcmJourney) {
   return journey;
 }
 
-function toJourney(xcm: xcm.XcmMessagePayload): XcmJourney {
+export function toJourney(xcm: xcm.XcmMessagePayload): XcmJourney {
   const legs: XcmJourneyLeg[] = [];
   for (let index = 0; index < xcm.legs.length; index++) {
     const { from, to, relay, type } = xcm.legs[index];
@@ -179,7 +181,6 @@ export function mergeJourney(
 
   if (j.destination.chainId === xcm.waypoint.chainId) {
     if (xcm.waypoint.outcome) {
-      j.updated = Date.now();
       j.destination = xcm.waypoint;
     }
   }
