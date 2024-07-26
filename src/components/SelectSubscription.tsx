@@ -132,10 +132,16 @@ export function SelectSubscription() {
       className="flex flex-col py-20 px-4 h-full bg-gray-900 bg-opacity-30 text-lg text-gray-300 items-center"
       onClick={() => setMenuOpen(!menuOpen)}
     >
-      <span className="text-center">
-        Please select a network to start tracking XCM journeys
+      <span className="text-left md:max-w-[50%]">
+        Welcome to the Ocelloids XCM Tracker!
+        <br/>
+        <br/>
+        You will be able to follow the status of cross-chain transactions as they happen in real-time in the Polkadot ecosystem.
+        <br/>
+        <br/>
+        Choose to track transactions across all supported networks or ones that originate from a certain chain below:
       </span>
-      <span className="w-fit border border-gray-300 mt-12">{menu}</span>
+      <span className="w-fit border border-gray-300 my-12">{menu}</span>
     </div>
   );
 }
