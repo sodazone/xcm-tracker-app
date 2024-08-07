@@ -134,12 +134,14 @@ export function SelectSubscription() {
     >
       <span className="text-left md:max-w-[50%]">
         Welcome to the Ocelloids XCM Tracker!
-        <br/>
-        <br/>
-        You will be able to follow the status of cross-chain transactions as they happen in real-time in the Polkadot ecosystem.
-        <br/>
-        <br/>
-        Choose to track transactions across all supported networks or ones that originate from a certain chain below:
+        <br />
+        <br />
+        You will be able to follow the status of cross-chain transactions as
+        they happen in real-time in the Polkadot ecosystem.
+        <br />
+        <br />
+        Choose to track transactions across all supported networks or ones that
+        originate from a certain chain below:
       </span>
       <span className="w-fit border border-gray-300 my-12">{menu}</span>
     </div>

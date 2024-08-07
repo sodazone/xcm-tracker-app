@@ -146,7 +146,9 @@ export function SubscriptionStreams() {
   if (state.journeys.length === 0 && state.pinned.count() === 0) {
     return (
       <div className="flex items-center space-x-2 p-4 bg-gray-900 bg-opacity-40 backdrop-blur">
-        <span className="text-gray-200 uppercase">Waiting for cross-chain transactions…</span>
+        <span className="text-gray-200 uppercase">
+          Waiting for cross-chain transactions…
+        </span>
         <IconPulse />
       </div>
     );

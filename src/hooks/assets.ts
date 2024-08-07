@@ -1,7 +1,7 @@
 import { steward } from "@sodazone/ocelloids-client";
 import { useEffect, useState } from "react";
 import { useOcelloidsContext } from "../context/OcelloidsContext";
-import { HumanizedXcm, XcmVersion } from "../lib/kb";
+import { HumanizedXcm } from "../lib/kb";
 import { getStorageObject, setLocalStorage } from "../lib/utils";
 
 type Asset = {
@@ -13,7 +13,6 @@ type Asset = {
 type AssetQueryData = {
   location: string;
   amount: bigint;
-  version?: XcmVersion;
 };
 
 type StoredMetadata = {
@@ -51,7 +50,6 @@ export function useFormattedAssets(chainId: string, humanized?: HumanizedXcm) {
           queryData.push({
             location,
             amount,
-            version: humanized.version,
           });
         }
       }
@@ -64,18 +62,16 @@ export function useFormattedAssets(chainId: string, humanized?: HumanizedXcm) {
     const formatted: Asset[] = [];
 
     async function queryAssetsMetadata(assetQueryData: AssetQueryData[]) {
-      const version = assetQueryData[0].version;
       const locations = assetQueryData.map((d) => d.location);
       try {
         const { items } = await client
           .agent("steward")
           .query<steward.StewardQueryArgs, steward.AssetMetadata>({
-            op: "assets.metadata.by_location",
+            op: "assets.by_location",
             criteria: [
               {
-                network: chainId,
+                xcmLocationAnchor: chainId,
                 locations,
-                version,
               },
             ],
           });
