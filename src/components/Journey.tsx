@@ -32,7 +32,6 @@ export function Journey({ journey, pinned, onPinClick }: Props) {
   const [shown, setShown] = useState<boolean>(true);
   const [humanized, setHumanized] = useState<HumanizedXcm>();
   // const chainId = journey.destination.chainId;
-  console.log("ASSETS", humanized?.assets);
 
   // TODO: refactor to use new XCM Humanizer agent
   // const formattedAssets = useFormattedAssets(chainId, humanized);

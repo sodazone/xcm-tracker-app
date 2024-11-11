@@ -1,4 +1,5 @@
-import { encodeAddress } from "@polkadot/util-crypto";
+import { fromBufferToBase58 } from "@polkadot-api/substrate-bindings";
+import { fromHex } from "@polkadot-api/utils";
 import { chains } from "../chains/index.js";
 
 const dateTimeFormatLong = new Intl.DateTimeFormat("en-US", {
@@ -115,7 +116,7 @@ export function chainName(id: string) {
 export function toAddress(key: string, chainId: string) {
   const chain = chains[chainId];
   if (chain !== undefined) {
-    return encodeAddress(key, chain.ss58);
+    return fromBufferToBase58(chain.ss58 ?? 42)(fromHex(key));
   }
   return key;
 }
