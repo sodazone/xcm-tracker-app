@@ -11,11 +11,6 @@ type RequireOnlyOne<T, Keys extends keyof T = keyof T> = Pick<
       Partial<Record<Exclude<Keys, K>, undefined>>;
   }[Keys];
 
-type VersionedXcm =
-  | { V2: XcmInstruction[] }
-  | { V3: XcmInstruction[] }
-  | { V4: XcmInstruction[] };
-
 export type XcmVersion = "v2" | "v3" | "v4";
 
 export enum XcmJourneyType {
@@ -64,53 +59,65 @@ export interface MultiAsset {
   fun: RequireOnlyOne<Fungibility>;
 }
 
-interface XcmInstructionSchema {
-  InitiateReserveWithdraw: {
-    assets: MultiAsset[];
-    reserve: AnyJson;
-    xcm: XcmInstruction;
-  };
-  InitiateTeleport: {
-    assets: MultiAsset[];
-    dest: AnyJson;
-    xcm: XcmInstruction;
-  };
-  DepositReserveAsset: {
-    assets: MultiAsset[];
-    dest: AnyJson;
-    xcm: XcmInstruction;
-  };
-  TransferReserveAsset: {
-    assets: MultiAsset[];
-    dest: AnyJson;
-    xcm: XcmInstruction;
-  };
-  Transact: unknown;
-  WithdrawAsset: MultiAsset[];
-  ReserveAssetDeposited: MultiAsset[];
-  DepositAsset: {
-    beneficiary: {
-      interior: {
-        X1: {
-          AccountId32: {
-            id: string;
-          };
-          AccountKey20: {
-            key: string;
-          };
-          Parachain: string;
-        };
-      };
-    };
-  };
-  ReceiveTeleportedAsset: MultiAsset[];
-  ExportMessage: unknown;
-  QueryResponse: unknown;
+type InitiateReserveWithdraw = {
+  assets: MultiAsset[];
+  reserve: AnyJson;
+  xcm: XcmInstruction[];
 }
 
-interface XcmInstruction extends Partial<XcmInstructionSchema> {}
-interface XcmInstructionXcm extends XcmInstruction {
+type InitiateTeleport =  {
+  assets: MultiAsset[];
+  dest: AnyJson;
   xcm: XcmInstruction[];
+}
+
+type DepositReserveAsset = InitiateTeleport
+type TransferReserveAsset = InitiateTeleport
+
+type ExportMessage = {
+  xcm: XcmInstruction[]
+}
+
+type AccountId32 = {
+  type: 'AccountId32'
+  value: {
+    id: string;
+  }
+}
+
+type AccountKey20 = {
+  type: 'AccountKey20'
+  value: {
+    key: string;
+  }
+}
+
+type Parachain = {
+  type: 'Parachain',
+  value: string
+}
+
+type DepositAsset = {
+  beneficiary: {
+    interior: {
+      type: string,
+      value: AccountId32 | AccountKey20 | Parachain;
+    };
+  };
+}
+
+// type WithdrawAsset = MultiAsset[]
+// type ReserveAssetDeposited = WithdrawAsset
+// type ReceiveTeleportedAsset = WithdrawAsset
+
+type XcmInstruction = {
+  type: string,
+  value: AnyJson
+}
+
+type XcmVersionedInstructions = {
+  type: string,
+  value: XcmInstruction[]
 }
 
 function isAssetId(object: any): object is RequireOnlyOne<AssetId> {
@@ -121,70 +128,68 @@ function isAssetId(object: any): object is RequireOnlyOne<AssetId> {
 // eslint-disable-next-line complexity
 export function humanize(journey: XcmJourney): HumanizedXcm {
   const { sender, origin, destination } = journey;
-  const version = Object.keys(
-    origin.instructions as unknown as VersionedXcm,
-  )[0];
-  const versioned: XcmInstruction[] = Object.values(
-    origin.instructions as unknown as XcmInstructionXcm,
-  )[0];
+  const version = (origin.instructions as unknown as XcmVersionedInstructions).type;
+  const versioned = (
+    origin.instructions as unknown as XcmVersionedInstructions
+  ).value;
   const hopTransfer = versioned.find(
     (op) =>
-      op.InitiateReserveWithdraw ||
-      op.InitiateTeleport ||
-      op.DepositReserveAsset ||
-      op.TransferReserveAsset,
+      op.type === 'InitiateReserveWithdraw' ||
+      op.type === 'InitiateTeleport' ||
+      op.type === 'DepositReserveAsset' ||
+      op.type === 'TransferReserveAsset',
   );
-  const bridgeMessage = versioned.find((op) => op.ExportMessage);
+  const bridgeMessage = versioned.find((op) => op.type === 'ExportMessage');
 
   let type = XcmJourneyType.Unknown;
-  if (versioned.find((op) => op.Transact)) {
+  if (versioned.find((op) => op.type === 'Transact')) {
     type = XcmJourneyType.Transact;
-  } else if (versioned.find((op) => op.QueryResponse)) {
+  } else if (versioned.find((op) => op.type === 'QueryResponse')) {
     type = XcmJourneyType.QueryResponse;
   } else if (
-    (versioned.find((op) => op.WithdrawAsset || op.ReserveAssetDeposited) &&
-      versioned.find((op) => op.DepositAsset)) ||
+    (versioned.find((op) => op.type === 'WithdrawAsset' || op.type === 'ReserveAssetDeposited') &&
+      versioned.find((op) => op.type === 'DepositAsset')) ||
     hopTransfer ||
     bridgeMessage
   ) {
     type = XcmJourneyType.Transfer;
-  } else if (versioned.find((op) => op.ReceiveTeleportedAsset)) {
+  } else if (versioned.find((op) => op.type === 'ReceiveTeleportedAsset')) {
     type = XcmJourneyType.Teleport;
   }
 
   // Extract beneficiary
-  let deposit = versioned.find((op) => op.DepositAsset !== undefined);
+  let deposit = versioned.find((op) => op.type === 'DepositAsset');
   if (hopTransfer) {
-    deposit = (Object.values(hopTransfer)[0] as XcmInstructionXcm).xcm.find(
-      (op) => op.DepositAsset !== undefined,
+    deposit = ((hopTransfer.value as unknown as InitiateTeleport | DepositReserveAsset | TransferReserveAsset | InitiateReserveWithdraw).xcm).find(
+      (op) => op.type === 'DepositAsset',
     );
   }
   if (bridgeMessage) {
-    deposit = (Object.values(bridgeMessage)[0] as XcmInstructionXcm).xcm.find(
-      (op) => op.DepositAsset !== undefined,
+    deposit = (bridgeMessage.value as unknown as ExportMessage).xcm.find(
+      (op) => op.type === 'DepositAsset'
     );
   }
 
   let beneficiary = "unknown";
 
   if (deposit !== undefined) {
-    const X1 = deposit.DepositAsset?.beneficiary.interior.X1;
+    const interiorValue = (deposit.value as unknown as DepositAsset).beneficiary.interior.value;
 
-    let maybeMultiAddress = X1;
+    let maybeMultiAddress = interiorValue;
 
-    if (X1 && Array.isArray(X1)) {
-      maybeMultiAddress = X1[0];
+    if (interiorValue && Array.isArray(interiorValue)) {
+      maybeMultiAddress = interiorValue[0];
     }
 
-    if (maybeMultiAddress?.AccountId32) {
+    if (maybeMultiAddress.type === 'AccountId32') {
       beneficiary = toAddress(
-        maybeMultiAddress.AccountId32.id,
+        maybeMultiAddress.value.id,
         destination.chainId,
       );
-    } else if (maybeMultiAddress?.AccountKey20) {
-      beneficiary = maybeMultiAddress.AccountKey20.key;
-    } else if (maybeMultiAddress?.Parachain) {
-      beneficiary = maybeMultiAddress.Parachain;
+    } else if (maybeMultiAddress.type === 'AccountKey20') {
+      beneficiary = maybeMultiAddress.value.key;
+    } else if (maybeMultiAddress.type === 'Parachain') {
+      beneficiary = maybeMultiAddress.value;
     }
   }
 
@@ -192,9 +197,9 @@ export function humanize(journey: XcmJourney): HumanizedXcm {
   const assets: XcmAsset[] = [];
   const _instruction = versioned.find(
     (op) =>
-      op.ReserveAssetDeposited !== undefined ||
-      op.ReceiveTeleportedAsset !== undefined ||
-      op.WithdrawAsset !== undefined,
+      op.type === 'ReserveAssetDeposited' !== undefined ||
+      op.type === 'ReceiveTeleportedAsset' !== undefined ||
+      op.type === 'WithdrawAsset' !== undefined,
   );
   if (
     _instruction !== undefined &&
@@ -202,10 +207,7 @@ export function humanize(journey: XcmJourney): HumanizedXcm {
     !hopTransfer &&
     !bridgeMessage // hops and bridged assets need to be handled differently T.T
   ) {
-    const multiAssets =
-      _instruction.ReserveAssetDeposited ||
-      _instruction.ReceiveTeleportedAsset ||
-      _instruction.WithdrawAsset;
+    const multiAssets = _instruction.value as unknown as MultiAsset[]
     if (multiAssets !== undefined) {
       for (const multiAsset of multiAssets) {
         const { id, fun } = multiAsset;

@@ -9,14 +9,16 @@ import {
 function renderBlockInfo({
   chainId,
   event,
-  extrinsicId,
+  extrinsicPosition,
   blockNumber,
 }: TypedXcmJourneyWaypoint) {
   const subscan = chains[chainId]?.subscanLink;
+  const extrinsicId = `${blockNumber}-${extrinsicPosition}`
   if (event && Object.keys(event).length > 0) {
+    const eventId = `${event.blockNumber}-${event.blockPosition}`
     const xtId = extrinsicId ?? `${blockNumber}-0`;
     const link = subscan
-      ? `${subscan}/extrinsic/${xtId}?event=${event.eventId}`
+      ? `${subscan}/extrinsic/${xtId}?event=${eventId}`
       : undefined;
     return (
       <a
@@ -24,7 +26,7 @@ function renderBlockInfo({
         href={link}
         className={`${link ? "hover:underline" : ""} flex space-x-1 text-sm items-center text-gray-300`}
       >
-        <span>{event.eventId}</span>
+        <span>{eventId}</span>
         <ArrowTopRightOnSquareIcon className="size-4" />
       </a>
     );
@@ -75,7 +77,7 @@ export function Leg({
                 {renderBlockInfo(stop)}
                 <span className="hidden ml-auto text-gray-400 text-xs font-mono capitalize md:block">
                   {stop.event && Object.keys(stop.event).length > 0
-                    ? `${stop.event.section} ${stop.event.method}`
+                    ? `${stop.event.module} ${stop.event.name}`
                     : ""}
                 </span>
               </div>
