@@ -1,6 +1,9 @@
 {
   "$schema": "https://biomejs.dev/schemas/1.7.3/schema.json",
   "organizeImports": { "enabled": true, "ignore": ["dist"] },
+  "files": {
+    "ignore": ["*.css"]
+  },
   "formatter": {
     "indentStyle": "space",
     "indentWidth": 2,

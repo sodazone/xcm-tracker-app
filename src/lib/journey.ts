@@ -5,11 +5,11 @@ export type XcmJourneyOutcome = "Success" | "Fail" | "Skip";
 export type XcmJourneyWaypoint = {
   chainId: string;
   messageHash?: string;
-  blockNumber?: number;
+  blockNumber?: string;
   outcome?: XcmJourneyOutcome;
   error?: AnyJson;
   event?: AnyJson;
-  extrinsicPosition: number;
+  blockPosition?: number;
   instructions?: AnyJson;
   assetsTrapped?: AnyJson;
   skipped?: boolean;
@@ -20,8 +20,12 @@ export type TypedXcmJourneyWaypoint = {
   event?: {
     module: string;
     name: string;
-    blockNumber?: number;
+    blockNumber: string;
     blockPosition: number;
+    extrinsic?: {
+      blockNumber: string;
+      blockPosition: number;
+    };
   };
 } & Omit<XcmJourneyWaypoint, "event">;
 

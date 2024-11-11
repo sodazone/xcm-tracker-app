@@ -9,14 +9,14 @@ import {
 function renderBlockInfo({
   chainId,
   event,
-  extrinsicPosition,
   blockNumber,
 }: TypedXcmJourneyWaypoint) {
   const subscan = chains[chainId]?.subscanLink;
-  const extrinsicId = `${blockNumber}-${extrinsicPosition}`
   if (event && Object.keys(event).length > 0) {
-    const eventId = `${event.blockNumber}-${event.blockPosition}`
-    const xtId = extrinsicId ?? `${blockNumber}-0`;
+    const eventId = `${event.blockNumber}-${event.blockPosition}`;
+    const xtId = event.extrinsic
+      ? `${event.extrinsic.blockNumber}-${event.extrinsic.blockPosition}`
+      : `${blockNumber}-0`;
     const link = subscan
       ? `${subscan}/extrinsic/${xtId}?event=${eventId}`
       : undefined;
