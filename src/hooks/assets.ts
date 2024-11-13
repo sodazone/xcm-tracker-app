@@ -94,7 +94,7 @@ export function useFormattedAssets(chainId: string, humanized?: HumanizedXcm) {
             formatted.push({
               amount: assetQueryData[index].amount,
               decimals: 0,
-              symbol: "TOKEN",
+              symbol: "UNITS",
             });
           }
         }

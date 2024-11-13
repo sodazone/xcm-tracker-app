@@ -9,11 +9,11 @@ import {
 } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 
-// import { useFormattedAssets } from "../hooks/assets";
+import { useFormattedAssets } from "../hooks/assets";
 import { XcmJourney } from "../lib/journey";
 import { HumanizedXcm, humanize } from "../lib/kb";
 import { formatDateTime } from "../lib/utils";
-// import { Balance } from "./Balances";
+import { Balance } from "./Balances";
 import { CodeBlock } from "./CodeBlock";
 import { Leg } from "./Leg";
 import { getIconForOutcomeFromConsensus } from "./icons/OutcomeIcon";
@@ -31,10 +31,10 @@ export function Journey({ journey, pinned, onPinClick }: Props) {
   const [legsExpanded, setLegsExpanded] = useState<boolean>(false);
   const [shown, setShown] = useState<boolean>(true);
   const [humanized, setHumanized] = useState<HumanizedXcm>();
-  // const chainId = journey.destination.chainId;
+  const chainId = journey.destination.chainId;
 
   // TODO: refactor to use new XCM Humanizer agent
-  // const formattedAssets = useFormattedAssets(chainId, humanized);
+  const formattedAssets = useFormattedAssets(chainId, humanized);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: will be refactored
   useEffect(() => {
@@ -74,7 +74,7 @@ export function Journey({ journey, pinned, onPinClick }: Props) {
             <div className="w-full text-gray-400 justify-between items-center hidden md:inline-flex md:space-x-4">
               <div className="flex items-center space-x-4">
                 {getXcmTypeBadge(humanized.type)}
-                {/* {formattedAssets.length > 0 && (
+                {formattedAssets.length > 0 && (
                   <div className="flex flex-wrap space-x-4">
                     {formattedAssets.map((a) => (
                       <Balance
@@ -84,7 +84,7 @@ export function Journey({ journey, pinned, onPinClick }: Props) {
                       />
                     ))}
                   </div>
-                )} */}
+                )}
                 <div className="flex space-x-2 items-center">
                   <span className="text-sm">from</span>
                   <span className="text-gray-300">{humanized.from}</span>
@@ -117,7 +117,7 @@ export function Journey({ journey, pinned, onPinClick }: Props) {
 
             <div className="flex flex-col text-gray-400 md:hidden">
               <div className="w-fit">{getXcmTypeBadge(humanized.type)}</div>
-              {/* {formattedAssets.length > 0 && (
+              {formattedAssets.length > 0 && (
                 <div className="mt-4">
                   {formattedAssets.map((a) => (
                     <Balance
@@ -127,7 +127,7 @@ export function Journey({ journey, pinned, onPinClick }: Props) {
                     />
                   ))}
                 </div>
-              )} */}
+              )}
               <div className="flex flex-col space-y-4 mt-6 mb-4">
                 <div className="flex space-x-4 ml-2 items-center">
                   {getIconForOutcomeFromConsensus(journey.origin)}
