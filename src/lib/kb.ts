@@ -178,7 +178,7 @@ export function humanize(journey: XcmJourney): HumanizedXcm {
     } else if (maybeMultiAddress.type === "AccountKey20") {
       beneficiary = maybeMultiAddress.value.key;
     } else if (maybeMultiAddress.type === "Parachain") {
-      beneficiary = maybeMultiAddress.value;
+      beneficiary = "ParaId " + maybeMultiAddress.value;
     }
   }
 
