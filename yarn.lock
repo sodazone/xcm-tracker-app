@@ -808,9 +808,9 @@
   integrity sha512-8YKhl8GHiNI/pU2VMaofa2Tor7PJRAjwQLBBuilkJ9L5+13yVbC7JO/wS7piioAvPSwR3JKM1IJ/u4xQzbcXKg==
 
 "@sodazone/ocelloids-client@^2.1.5":
-  version "2.3.5"
-  resolved "https://registry.yarnpkg.com/@sodazone/ocelloids-client/-/ocelloids-client-2.3.5.tgz#78eae3b84574ab20137b3775954bc16d74344cd1"
-  integrity sha512-zJkCj7aN7saSK/kZLWocnbab/ysNw3gT5JKJ/wBLmL2LKowb1p6Rrcw9VRwB09sxzPorvqQYJR4kRUggdM1dfw==
+  version "2.3.6"
+  resolved "https://registry.yarnpkg.com/@sodazone/ocelloids-client/-/ocelloids-client-2.3.6.tgz#a1ffab3525a8c55e8cfb4c8556d7fa4f3f09947b"
+  integrity sha512-W+6VT1++YE52juL2Jn3LUk0lEE4HENnRHsMAli5QAsL4OMHlQSlUwxmLNOzvFnqUx0tjGExU8xkrrsObu++wSA==
   dependencies:
     isows "^1.0.6"
     ky "^1.7.2"
@@ -1909,6 +1909,7 @@ stoppable@^1.1.0:
   integrity sha512-KXDYZ9dszj6bzvnEMRYvxgeTHU74QBFL54XKtP3nyMuJ81CFYtABZ3bAzL2EdFUaEwJOBOgENyFj3R7oTzDyyw==
 
 "string-width-cjs@npm:string-width@^4.2.0", string-width@^4.1.0:
+  name string-width-cjs
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
@@ -1927,6 +1928,7 @@ string-width@^5.0.1, string-width@^5.1.2:
     strip-ansi "^7.0.1"
 
 "strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+  name strip-ansi-cjs
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
   integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
@@ -2097,9 +2099,9 @@ workerd@1.20241205.0:
     "@cloudflare/workerd-windows-64" "1.20241205.0"
 
 wrangler@^3.63.1:
-  version "3.94.0"
-  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-3.94.0.tgz#308f1d1d84cb9a268aec13154576a8f12d387a9e"
-  integrity sha512-4yw8FKp6SI6WQkALnRlWYjehmgliaaMroLLnymWS9qHndjqrZIPZ16trrhl1HvAEDov/rIg0jZ4nxo5n6K0a/Q==
+  version "3.95.0"
+  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-3.95.0.tgz#920af5dba125263ab58f4bf9affc01bf425f0dda"
+  integrity sha512-3w5852i3FNyDz421K2Qk4v5L8jjwegO5O8E1+VAQmjnm82HFNxpIRUBq0bmM7CTLvOPI/Jjcmj/eAWjQBL7QYg==
   dependencies:
     "@cloudflare/kv-asset-handler" "0.3.4"
     "@cloudflare/workers-shared" "0.11.0"
