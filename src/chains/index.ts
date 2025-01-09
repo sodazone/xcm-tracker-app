@@ -106,6 +106,7 @@ export const chains: Record<string, ChainProperties> = {
     subscanLink: "https://manta.subscan.io",
   },
   "urn:ocn:polkadot:3340": { name: "invarch", ss58: 117 },
+  "urn:ocn:polkadot:3344": { name: "polimec", ss58: 41 },
   "urn:ocn:polkadot:3369": {
     name: "mythos",
     ss58: 29972,
