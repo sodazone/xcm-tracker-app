@@ -133,7 +133,13 @@ export function toJourney(xcm: xcm.XcmMessagePayload): XcmJourney {
       type,
       stops: [],
     };
-    leg.stops.push({ chainId: from });
+    // the first stop of the first leg is always the origin
+    if (index === 0) {
+      leg.stops.push({ ...xcm.origin });
+    } else {
+      leg.stops.push({ chainId: from });
+    }
+
     if (relay !== undefined) {
       leg.stops.push({ chainId: relay });
     }
