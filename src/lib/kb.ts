@@ -1,6 +1,6 @@
 import { AnyJson } from "@sodazone/ocelloids-client";
 import { XcmJourney } from "./journey.js";
-import { chainName, toAddress, trunc } from "./utils.js";
+import { toAddress } from "./utils.js";
 
 export type XcmVersion = "v2" | "v3" | "v4";
 
@@ -19,8 +19,8 @@ export type XcmAsset = {
 
 export type HumanizedXcm = {
   type: XcmJourneyType;
-  to: string;
-  from: string;
+  to: string | null;
+  from: string | null;
   assets: XcmAsset[];
   version?: XcmVersion;
 };
@@ -224,10 +224,10 @@ export function humanize(journey: XcmJourney): HumanizedXcm {
   }
 
   const signer = sender?.signer;
-  const from = signer ? trunc(signer.id as string) : chainName(origin.chainId);
+  const from = signer ? (signer.id as string) : null;
   const to = [XcmJourneyType.Teleport, XcmJourneyType.Transfer].includes(type)
-    ? trunc(beneficiary)
-    : chainName(destination.chainId);
+    ? beneficiary
+    : null;
 
   return {
     type,

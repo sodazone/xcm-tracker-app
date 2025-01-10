@@ -13,6 +13,7 @@ import { useFormattedAssets } from "../hooks/assets";
 import { XcmJourney } from "../lib/journey";
 import { HumanizedXcm, humanize } from "../lib/kb";
 import { formatDateTime } from "../lib/utils";
+import { AddressWithLink } from "./AddressWithLink";
 import { Balance } from "./Balances";
 import { CodeBlock } from "./CodeBlock";
 import { Leg } from "./Leg";
@@ -76,8 +77,9 @@ export function Journey({ journey, pinned, onPinClick }: Props) {
                 {getXcmTypeBadge(humanized.type)}
                 {formattedAssets.length > 0 && (
                   <div className="flex flex-wrap space-x-4">
-                    {formattedAssets.map((a) => (
+                    {formattedAssets.map((a, i) => (
                       <Balance
+                        key={a.symbol === "TOKEN" ? `TOKEN-${i}` : a.symbol}
                         amount={a.amount}
                         decimals={a.decimals}
                         symbol={a.symbol}
@@ -87,9 +89,15 @@ export function Journey({ journey, pinned, onPinClick }: Props) {
                 )}
                 <div className="flex space-x-2 items-center">
                   <span className="text-sm">from</span>
-                  <span className="text-gray-300">{humanized.from}</span>
+                  <AddressWithLink
+                    address={humanized.from}
+                    chainId={journey.origin.chainId}
+                  />
                   <span className="text-sm">to</span>
-                  <span className="text-gray-300">{humanized.to}</span>
+                  <AddressWithLink
+                    address={humanized.to}
+                    chainId={journey.destination.chainId}
+                  />
                 </div>
                 <div className="flex items-center space-x-4 p-1 md:p-0 md:items-center">
                   {getIconForOutcomeFromConsensus(journey.origin)}
@@ -119,8 +127,9 @@ export function Journey({ journey, pinned, onPinClick }: Props) {
               <div className="w-fit">{getXcmTypeBadge(humanized.type)}</div>
               {formattedAssets.length > 0 && (
                 <div className="mt-4">
-                  {formattedAssets.map((a) => (
+                  {formattedAssets.map((a, i) => (
                     <Balance
+                      key={a.symbol === "TOKEN" ? `TOKEN-${i}` : a.symbol}
                       amount={a.amount}
                       decimals={a.decimals}
                       symbol={a.symbol}
@@ -131,12 +140,18 @@ export function Journey({ journey, pinned, onPinClick }: Props) {
               <div className="flex flex-col space-y-4 mt-6 mb-4">
                 <div className="flex space-x-4 ml-2 items-center">
                   {getIconForOutcomeFromConsensus(journey.origin)}
-                  <span className="text-gray-300">{humanized.from}</span>
+                  <AddressWithLink
+                    address={humanized.from}
+                    chainId={journey.origin.chainId}
+                  />
                 </div>
                 <ArrowLongDownIcon className="size-4 ml-10" />
                 <div className="flex space-x-4 ml-2 items-center">
                   {getIconForOutcomeFromConsensus(journey.destination)}
-                  <span className="text-gray-300">{humanized.to}</span>
+                  <AddressWithLink
+                    address={humanized.to}
+                    chainId={journey.destination.chainId}
+                  />
                 </div>
               </div>
               <span className="mr-3 text-sm">
