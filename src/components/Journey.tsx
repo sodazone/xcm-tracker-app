@@ -79,7 +79,7 @@ export function Journey({ journey, pinned, onPinClick }: Props) {
                   <div className="flex flex-wrap space-x-4">
                     {formattedAssets.map((a, i) => (
                       <Balance
-                        key={a.symbol === "TOKEN" ? `TOKEN-${i}` : a.symbol}
+                        key={a.symbol === "UNITS" ? `UNITS-${i}` : a.symbol}
                         amount={a.amount}
                         decimals={a.decimals}
                         symbol={a.symbol}
