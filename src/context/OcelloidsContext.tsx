@@ -5,16 +5,12 @@ import React, {
   useEffect,
   useState,
   useMemo,
-  useCallback,
 } from "react";
 
 type OcelloidsContext = {
   client: OcelloidsClient;
   loading: boolean;
-  subscriptions: Subscription<xcm.XcmInputs>[];
-  subscriptionId?: string;
-  setSubscriptionId: React.Dispatch<React.SetStateAction<string | undefined>>;
-  getSelectedSubscriptions: () => Subscription<xcm.XcmInputs>[];
+  subscription: Subscription<xcm.XcmInputs> | undefined;
 };
 
 const OcelloidsContext = React.createContext<OcelloidsContext>(
@@ -36,38 +32,31 @@ export function OcelloidsContextProvider({ children }: PropsWithChildren) {
     [],
   );
 
-  const [subscriptions, setSubscriptions] = useState<
-    Subscription<xcm.XcmInputs>[]
-  >([]);
-  const [subscriptionId, setSubscriptionId] = useState<string>();
+  const [subscription, setSubscription] = useState<
+    Subscription<xcm.XcmInputs> | undefined
+  >();
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     async function getSubscriptions() {
       const subs = await client.agent<xcm.XcmInputs>("xcm").allSubscriptions();
-      const wsSubs = subs.filter((s) =>
-        s.channels.some((chan) => chan.type === "websocket"),
+      const wsSub = subs.find(
+        (s) =>
+          s.id === "all-xcm-transfers" &&
+          // s.args.destinations === '*' && s.args.origins === '*' &&
+          s.channels.some((chan) => chan.type === "websocket"),
       );
-      setSubscriptions(wsSubs);
+      setSubscription(wsSub);
       setLoading(false);
     }
 
     getSubscriptions();
   }, [client]);
 
-  const getSelectedSubscriptions = useCallback(() => {
-    return subscriptionId === "all"
-      ? subscriptions
-      : subscriptions.filter((s) => s.id === subscriptionId);
-  }, [subscriptionId, subscriptions]);
-
   const state = {
     client,
     loading,
-    subscriptions,
-    subscriptionId,
-    setSubscriptionId,
-    getSelectedSubscriptions,
+    subscription,
   };
 
   return (

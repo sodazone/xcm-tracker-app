@@ -12,13 +12,15 @@ import {
   toJourneyId,
 } from "../lib/journey";
 
+import { chains } from "../chains";
 import { FixedSizedCache } from "../lib/cache";
 import { Journey } from "./Journey";
+import { getIconChain } from "./icons/ChainIcon";
 import { IconPulse } from "./icons/OutcomeIcon";
 
 export function SubscriptionStreams() {
-  const { client, getSelectedSubscriptions } = useOcelloidsContext();
-  const [connections, setConnections] = useState<WebSocket[]>([]);
+  const { client, subscription } = useOcelloidsContext();
+  const [connection, setConnection] = useState<WebSocket>();
   const [connecting, setConnecting] = useState<boolean>(false);
   const [state, setState] = useState<{
     journeys: FixedSizedCache<XcmJourney>;
@@ -27,72 +29,63 @@ export function SubscriptionStreams() {
     journeys: new FixedSizedCache<XcmJourney>(),
     pinned: IMap<string, XcmJourney>(),
   });
+  const networks = Object.keys(chains);
 
   useEffect(() => {
     async function connect() {
-      const subs = getSelectedSubscriptions();
-      if (subs.length > 0 && connections.length === 0 && connecting === false) {
-        console.log(
-          "open ws",
-          subs.map((s) => s.id),
-        );
+      if (subscription && !connection && connecting === false) {
+        console.log("open ws", subscription.id);
         setConnecting(true);
 
-        const conn = [];
+        const conn = await client
+          .agent<xcm.XcmInputs>("xcm")
+          .subscribe<xcm.XcmMessagePayload>(subscription.id, {
+            onMessage: (msg) => {
+              console.log("MSG", msg);
 
-        for (const sub of subs) {
-          conn.push(
-            await client
-              .agent<xcm.XcmInputs>("xcm")
-              .subscribe<xcm.XcmMessagePayload>(sub.id, {
-                onMessage: (msg) => {
-                  console.log("MSG", msg);
+              const xcm = msg.payload;
+              const id = toJourneyId(xcm);
 
-                  const xcm = msg.payload;
-                  const id = toJourneyId(xcm);
+              setState((prev) => {
+                const pinnedJourney = prev.pinned.get(id);
+                if (pinnedJourney !== undefined) {
+                  const merged = mergeJourney(xcm, pinnedJourney);
+                  return {
+                    journeys: prev.journeys,
+                    pinned: prev.pinned.set(id, merged),
+                  };
+                } else {
+                  let journey;
 
-                  setState((prev) => {
-                    const pinnedJourney = prev.pinned.get(id);
-                    if (pinnedJourney !== undefined) {
-                      const merged = mergeJourney(xcm, pinnedJourney);
-                      return {
-                        journeys: prev.journeys,
-                        pinned: prev.pinned.set(id, merged),
-                      };
-                    } else {
-                      let journey;
-
-                      // is the first message
-                      if (prev.journeys.length === 0) {
-                        journey = toJourney(xcm);
-                        if (xcm.type === "xcm.received") {
-                          journey.legs.forEach((leg) => {
-                            leg.stops.forEach((stop) => {
-                              if (stop.outcome === undefined) {
-                                stop.skipped = true;
-                                stop.outcome = "Skip";
-                              }
-                            });
-                          });
-                        }
-                      } else {
-                        const prevJourney = prev.journeys.get(id);
-                        journey = mergeJourney(xcm, prevJourney);
-                      }
-
-                      prev.journeys.set(id, journey);
-                      return {
-                        pinned: prev.pinned,
-                        journeys: prev.journeys,
-                      };
+                  // is the first message
+                  if (prev.journeys.length === 0) {
+                    journey = toJourney(xcm);
+                    if (xcm.type === "xcm.received") {
+                      journey.legs.forEach((leg) => {
+                        leg.stops.forEach((stop) => {
+                          if (stop.outcome === undefined) {
+                            stop.skipped = true;
+                            stop.outcome = "Skip";
+                          }
+                        });
+                      });
                     }
-                  });
-                },
-              }),
-          );
-        }
+                  } else {
+                    const prevJourney = prev.journeys.get(id);
+                    journey = mergeJourney(xcm, prevJourney);
+                  }
 
-        setConnections(conn);
+                  prev.journeys.set(id, journey);
+                  return {
+                    pinned: prev.pinned,
+                    journeys: prev.journeys,
+                  };
+                }
+              });
+            },
+          });
+
+        setConnection(conn);
         setConnecting(false);
       }
     }
@@ -100,20 +93,17 @@ export function SubscriptionStreams() {
     connect();
 
     return () => {
-      if (connections.length > 0) {
+      if (connection) {
         console.log("close ws");
-
-        for (const ws of connections) {
-          ws.close(1000, "bye");
-        }
-        setConnections([]);
+        connection.close(1000, "bye");
+        setConnection(undefined);
       }
       setState({
         journeys: new FixedSizedCache<XcmJourney>(),
         pinned: IMap<string, XcmJourney>(),
       });
     };
-  }, [client, getSelectedSubscriptions, connections, connecting]);
+  }, [client, subscription, connection, connecting]);
 
   function pinJourney(j: XcmJourney) {
     return () => {
@@ -139,18 +129,34 @@ export function SubscriptionStreams() {
     };
   }
 
-  if (connections.length === 0) {
+  if (!connection || !subscription) {
     return null;
   }
 
+  const header = (
+    <div
+      className={`isolate flex-col w-full text-sm text-gray-400 px-4 border-b border-gray-900 bg-gray-900 bg-opacity-90 md:divide-x md:divide-gray-900 md:flex-row md:space-x-3 md:flex`}
+    >
+      <div className="flex flex-col space-y-2 pb-2 pt-2 md:pt-0">
+        <span className="uppercase font-semibold">Networks</span>
+        <span className="flex -space-x-1">
+          {networks.map((n) => getIconChain(n))}
+        </span>
+      </div>
+    </div>
+  );
+
   if (state.journeys.length === 0 && state.pinned.count() === 0) {
     return (
-      <div className="flex items-center space-x-2 p-4 bg-gray-900 bg-opacity-40 backdrop-blur">
-        <span className="text-gray-200 uppercase">
-          Waiting for cross-chain transactions…
-        </span>
-        <IconPulse />
-      </div>
+      <>
+        {header}
+        <div className="flex items-center space-x-2 p-4 bg-gray-900 bg-opacity-40 backdrop-blur">
+          <span className="text-gray-200 uppercase">
+            Waiting for cross-chain transactions…
+          </span>
+          <IconPulse />
+        </div>
+      </>
     );
   }
 
@@ -158,26 +164,30 @@ export function SubscriptionStreams() {
   const journeyEntries = state.journeys.entries();
 
   return (
-    <div className="flex flex-col backdrop-blur-xl">
-      <div className="w-full">
-        {pinnedEntries.map(([id, p]) => (
-          <Journey
-            key={id}
-            journey={p}
-            pinned={true}
-            onPinClick={unPinJourney(p)}
-          />
-        ))}
-      </div>
-      <div className="w-full">
-        {journeyEntries.map(([id, j]) => (
-          <Journey
-            key={id}
-            journey={j}
-            pinned={false}
-            onPinClick={pinJourney(j)}
-          />
-        ))}
+    <div>
+      {header}
+
+      <div className="flex flex-col backdrop-blur-xl">
+        <div className="w-full">
+          {pinnedEntries.map(([id, p]) => (
+            <Journey
+              key={id}
+              journey={p}
+              pinned={true}
+              onPinClick={unPinJourney(p)}
+            />
+          ))}
+        </div>
+        <div className="w-full">
+          {journeyEntries.map(([id, j]) => (
+            <Journey
+              key={id}
+              journey={j}
+              pinned={false}
+              onPinClick={pinJourney(j)}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

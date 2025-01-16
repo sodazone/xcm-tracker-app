@@ -2,11 +2,15 @@ import astar from "./img/astar.png";
 import bifrost from "./img/bifrost.png";
 import centrifuge from "./img/centrifuge.png";
 import composable from "./img/composable.png";
+import coretime from "./img/coretime.png";
 import hydra from "./img/hydra-white.png";
+import hyperbridge from "./img/hyperbridge.png";
 import interlay from "./img/interlay.png";
 import invarch from "./img/invarch.jpeg";
 import manta from "./img/manta.png";
+import mythos from "./img/mythos.png";
 import nodle from "./img/nodle.png";
+import people from "./img/people.png";
 import phala from "./img/phala.png";
 import polkadex from "./img/polkadex.png";
 import rococo from "./img/rococo.png";
@@ -306,6 +310,24 @@ function getIconByChainId(id: string) {
             />
           </g>
         </svg>
+      );
+    case "urn:ocn:polkadot:1004": // people chain
+      return (
+        <img
+          className="w-full h-full rounded-full"
+          src={people}
+          alt=""
+          title="People Chain"
+        />
+      );
+    case "urn:ocn:polkadot:1005": // coretime chain
+      return (
+        <img
+          className="w-full h-full rounded-full"
+          src={coretime}
+          alt=""
+          title="Coretime Chain"
+        />
       );
     case "urn:ocn:polkadot:2000": // acala
       return (
@@ -641,6 +663,24 @@ function getIconByChainId(id: string) {
             </clipPath>
           </defs>
         </svg>
+      );
+    case "urn:ocn:polkadot:3367": // hyperbridge
+      return (
+        <img
+          className="w-full h-full rounded-full"
+          src={hyperbridge}
+          alt=""
+          title="Hyperbridge"
+        />
+      );
+    case "urn:ocn:polkadot:3369": // mythos
+      return (
+        <img
+          className="w-full h-full rounded-full"
+          src={mythos}
+          alt=""
+          title="Mythos"
+        />
       );
     default:
       return <span className="w-full h-full"></span>;

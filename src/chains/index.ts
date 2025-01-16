@@ -20,6 +20,16 @@ export const chains: Record<string, ChainProperties> = {
     ss58: 0,
     subscanLink: "https://bridgehub-polkadot.subscan.io/",
   },
+  "urn:ocn:polkadot:1004": {
+    name: "polkadot people chain",
+    ss58: 0,
+    subscanLink: "https://people-polkadot.subscan.io",
+  },
+  "urn:ocn:polkadot:1005": {
+    name: "polkadot coretime chain",
+    ss58: 0,
+    subscanLink: "https://coretime-polkadot.subscan.io",
+  },
   "urn:ocn:polkadot:2000": {
     name: "acala",
     ss58: 10,
