@@ -12,14 +12,13 @@ import {
   toJourneyId,
 } from "../lib/journey";
 
-import { chains } from "../chains";
 import { FixedSizedCache } from "../lib/cache";
 import { Journey } from "./Journey";
 import { getIconChain } from "./icons/ChainIcon";
 import { IconPulse } from "./icons/OutcomeIcon";
 
 export function SubscriptionStreams() {
-  const { client, subscription } = useOcelloidsContext();
+  const { client, subscription, networks } = useOcelloidsContext();
   const [connection, setConnection] = useState<WebSocket>();
   const [connecting, setConnecting] = useState<boolean>(false);
   const [state, setState] = useState<{
@@ -29,7 +28,6 @@ export function SubscriptionStreams() {
     journeys: new FixedSizedCache<XcmJourney>(),
     pinned: IMap<string, XcmJourney>(),
   });
-  const networks = Object.keys(chains);
 
   useEffect(() => {
     async function connect() {

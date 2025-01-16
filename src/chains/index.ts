@@ -166,4 +166,14 @@ export const chains: Record<string, ChainProperties> = {
     ss58: 42,
     subscanLink: "https://mangatax.subscan.io",
   },
+  "urn:ocn:paseo:0": {
+    name: "paseo",
+    ss58: 0,
+    subscanLink: "https://paseo.subscan.io",
+  },
+  "urn:ocn:paseo:1000": {
+    name: "paseo asset hub",
+    ss58: 0,
+    subscanLink: "https://assethub-paseo.subscan.io",
+  },
 };

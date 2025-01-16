@@ -15,6 +15,8 @@ import phala from "./img/phala.png";
 import polkadex from "./img/polkadex.png";
 import rococo from "./img/rococo.png";
 import unique from "./img/unique.png";
+import paseo from "./img/paseo.png"
+import paseoAH from "./img/paseo-asset-hub.png"
 
 function getIconByChainId(id: string) {
   switch (id) {
@@ -682,7 +684,26 @@ function getIconByChainId(id: string) {
           title="Mythos"
         />
       );
+    case "urn:ocn:paseo:0": // paseo
+      return (
+        <img
+          className="w-full h-full rounded-full"
+          src={paseo}
+          alt=""
+          title="Paseo"
+        />
+      );
+    case "urn:ocn:paseo:1000": // paseo asset hub
+      return (
+        <img
+          className="w-full h-full rounded-full"
+          src={paseoAH}
+          alt=""
+          title="Paseo Asset Hub"
+        />
+      );
     default:
+      console.log('Chain logo not supported', id)
       return <span className="w-full h-full"></span>;
   }
 }
