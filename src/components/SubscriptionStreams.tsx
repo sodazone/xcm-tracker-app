@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { Map as IMap } from "immutable";
 
-import { xcm } from "@sodazone/ocelloids-client";
+import { xcm as xcmTypes } from "@sodazone/ocelloids-client";
 
 import { useOcelloidsContext } from "../context/OcelloidsContext";
 import {
@@ -36,8 +36,8 @@ export function SubscriptionStreams() {
         setConnecting(true);
 
         const conn = await client
-          .agent<xcm.XcmInputs>("xcm")
-          .subscribe<xcm.XcmMessagePayload>(subscription.id, {
+          .agent<xcmTypes.XcmInputs>("xcm")
+          .subscribe<xcmTypes.XcmMessagePayload>(subscription.id, {
             onMessage: (msg) => {
               console.log("MSG", msg);
 
