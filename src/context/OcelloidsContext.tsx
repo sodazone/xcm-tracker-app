@@ -11,7 +11,7 @@ type OcelloidsContext = {
   client: OcelloidsClient;
   loading: boolean;
   subscription: Subscription<xcm.XcmInputs> | undefined;
-  networks: string[]
+  networks: string[];
 };
 
 const OcelloidsContext = React.createContext<OcelloidsContext>(
@@ -36,7 +36,7 @@ export function OcelloidsContextProvider({ children }: PropsWithChildren) {
   const [subscription, setSubscription] = useState<
     Subscription<xcm.XcmInputs> | undefined
   >();
-  const [networks, setNetworks] = useState<string[]>([])
+  const [networks, setNetworks] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -44,11 +44,12 @@ export function OcelloidsContextProvider({ children }: PropsWithChildren) {
       const subs = await client.agent<xcm.XcmInputs>("xcm").allSubscriptions();
       const wsSub = subs.find(
         (s) =>
-          s.args.destinations === '*' && s.args.origins === '*' &&
+          s.args.destinations === "*" &&
+          s.args.origins === "*" &&
           s.channels.some((chan) => chan.type === "websocket"),
       );
-      const networks = await client.networks()
-      setNetworks(networks)
+      const networks = await client.networks();
+      setNetworks(networks);
       setSubscription(wsSub);
       setLoading(false);
     }
@@ -60,7 +61,7 @@ export function OcelloidsContextProvider({ children }: PropsWithChildren) {
     client,
     loading,
     subscription,
-    networks
+    networks,
   };
 
   return (

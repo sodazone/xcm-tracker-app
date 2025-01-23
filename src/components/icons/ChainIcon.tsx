@@ -10,13 +10,13 @@ import invarch from "./img/invarch.jpeg";
 import manta from "./img/manta.png";
 import mythos from "./img/mythos.png";
 import nodle from "./img/nodle.png";
+import paseoAH from "./img/paseo-asset-hub.png";
+import paseo from "./img/paseo.png";
 import people from "./img/people.png";
 import phala from "./img/phala.png";
 import polkadex from "./img/polkadex.png";
 import rococo from "./img/rococo.png";
 import unique from "./img/unique.png";
-import paseo from "./img/paseo.png"
-import paseoAH from "./img/paseo-asset-hub.png"
 
 function getIconByChainId(id: string) {
   switch (id) {
@@ -703,7 +703,7 @@ function getIconByChainId(id: string) {
         />
       );
     default:
-      console.log('Chain logo not supported', id)
+      console.log("Chain logo not supported", id);
       return <span className="w-full h-full"></span>;
   }
 }

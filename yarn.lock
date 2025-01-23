@@ -814,9 +814,9 @@
   integrity sha512-8YKhl8GHiNI/pU2VMaofa2Tor7PJRAjwQLBBuilkJ9L5+13yVbC7JO/wS7piioAvPSwR3JKM1IJ/u4xQzbcXKg==
 
 "@sodazone/ocelloids-client@^2.1.5":
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/@sodazone/ocelloids-client/-/ocelloids-client-2.4.2.tgz#af4469a0a89db3ae07cc749fb8d9cd89f2178c3b"
-  integrity sha512-uGnedjjnMTmiGzqL+niYGbFb++o3H3q/21bdT5FsDfGw3nSk8idBQ1KeOc1xUBuc4O4fiBQyzBXmJBELtzVdoA==
+  version "2.4.4"
+  resolved "https://registry.yarnpkg.com/@sodazone/ocelloids-client/-/ocelloids-client-2.4.4.tgz#b3e9394d3dc348618a3653c7a64e8e7f1d38df6d"
+  integrity sha512-saQZhbODukXrML3I+iYKYzCnCMwHmzaxe66TpXs7QtvpVeZFDJ6nyABAsFChpx6mchSckMM7SNDVOmbs2GdMcw==
   dependencies:
     isows "^1.0.6"
     ky "^1.7.4"
