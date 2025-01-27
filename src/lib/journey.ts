@@ -5,7 +5,7 @@ export type XcmJourneyOutcome = "Success" | "Fail" | "Skip";
 export type XcmJourneyWaypoint = {
   chainId: string;
   messageHash?: string;
-  blockNumber?: string;
+  blockNumber?: string | number;
   outcome?: XcmJourneyOutcome;
   error?: AnyJson;
   event?: AnyJson;
