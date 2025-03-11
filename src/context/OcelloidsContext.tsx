@@ -48,8 +48,8 @@ export function OcelloidsContextProvider({ children }: PropsWithChildren) {
           s.args.origins === "*" &&
           s.channels.some((chan) => chan.type === "websocket"),
       );
-      const networks = await client.networks();
-      setNetworks(networks);
+      const { substrate } = await client.networks();
+      setNetworks(substrate);
       setSubscription(wsSub);
       setLoading(false);
     }
